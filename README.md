@@ -144,6 +144,12 @@ Whenever "ok glass" is written at the bottom of the screen, there are options
 available on the card. Sliding a finger down on the Google Glass touchpad will
 cancel menu selection when open, either by voice or by touch.
 
+The main menu has four options:
+* [Work Orders][head0601]
+* [Scheduled Maintenance][head0602]
+* [Scan QR Code][head0603]
+* [Generate Asset][head0604]
+
 [Back to Top][BackToTop]
 
 ### 6.1 Work Orders ###
@@ -161,7 +167,7 @@ Each work order has three options:
 * [See Tasks][head0606]
 * [Change Status][head0607]
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.2 Scheduled Maintenance ###
 
@@ -177,7 +183,7 @@ Each scheduled maintenance has two options:
 * [View More][head0605]
 * [See Tasks][head0606]
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.3 Scan QR Code ###
 
@@ -192,7 +198,7 @@ From these cards, there are four options:
 * [Related Scheduled Maintenance][head0602]
 * [Generate Work Order][head0608]
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.4 Generate Asset ###
 
@@ -214,7 +220,7 @@ asset will be loaded to the screen. This is the same as after
 * [Related Scheduled Maintenance][head0602]
 * [Generate Work Order][head0608]
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.5 View More ###
 
@@ -225,7 +231,7 @@ touchpad.
 
 There are no further options from View More.
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.6 See Tasks ###
 
@@ -246,7 +252,7 @@ completed.
 
 There are no further options from See Tasks.
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.7 Change Status ###
 
@@ -260,7 +266,7 @@ the Change Status option will have its status switched to the chosen option.
 
 There are no further options from Change Status.
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 
 ### 6.8 Generate Work Order ###
 
@@ -283,7 +289,7 @@ MA Glass until its status is changed to an active status from the CMMS.
 
 There are no further options from Generate Work Order.
 
-[Back to Top][BackToTop]
+[Back to Running][head0600]
 <br>
 
 7 LICENSING
