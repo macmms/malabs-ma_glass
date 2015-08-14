@@ -189,7 +189,7 @@ Each scheduled maintenance has two options:
 * [See Tasks][head0607]
 
 [Back to Scan][head0604]  
-[Back to Asset][head0605]
+[Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
 ### 6.4 Scan QR Code ###
