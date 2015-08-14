@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/view_more"
+        android:title="View More"/>
+    <item android:id="@+id/see_tasks"
+        android:title="See Tasks"/>
+    <item android:id="@+id/change_work_order_status"
+        android:title="Change Status">
+    </item>
+</menu>

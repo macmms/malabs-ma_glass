@@ -1,0 +1,19 @@
+<resources>
+    <!-- Application Title -->
+    <string name="app_name">MA Glass</string>
+
+    <!-- Activity Titles -->
+    <string name="title_activity_main">Maintenance Assistant</string>
+    <string name="title_activity_results">Results</string>
+    <string name="title_pick_status">Select Status</string>
+    <string name="title_view_more_info">View More</string>
+    <string name="title_see_tasks">Tasks</string>
+    <string name="title_activity_asset">Asset</string>
+    <string name="title_activity_request">Request Work Order</string>
+
+    <!-- API CREDENTIALS -->
+    <string name="user_URL">URL here (with /api/ at the end)</string>
+    <string name="app_key">Application Key Here</string>
+    <string name="api_key">API Key Here</string>
+    <string name="sec_key">Secret Key Here</string>
+</resources>
