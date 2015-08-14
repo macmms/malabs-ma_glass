@@ -96,7 +96,7 @@ With the files extracted, the project can be opened through Android Studio.
 --------------
 
 The MA Glass application needs API credentials from the MA CMMS in order to
-function. Three keys and a URL to the CMMS are required.To learn about getting
+function. Three keys and a URL to the CMMS are required. To learn about getting
 your API keys, go to the web page:
 
 &nbsp;&nbsp;&nbsp;[https://www.maintenanceassistant.com/api/docs/guide.html][APIdoc]
