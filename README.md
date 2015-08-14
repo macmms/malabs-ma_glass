@@ -51,7 +51,6 @@ as a mobile, hands-free alternative to the MA Mobile App and the browser CMMS.
 3 REQUIREMENTS
 --------------
 
-INSERT REQUIREMENTS LIST HERE
 An Android Development Environment is needed to build the application.
 [Android Studio][AndStd] is recommended.
 
