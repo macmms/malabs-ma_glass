@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jake on 2015-07-21.
+ * Created by Jake Uskoski on 2015-07-21.
  */
 public class PickStatusActivity extends Activity {
     private String mActivityController = "";

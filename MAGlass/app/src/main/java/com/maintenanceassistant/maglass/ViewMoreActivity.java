@@ -36,7 +36,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Created by Jake on 2015-07-17.
+ * Created by Jake Uskoski on 2015-07-17.
  */
 public class ViewMoreActivity extends Activity{
     private String mActivityController;

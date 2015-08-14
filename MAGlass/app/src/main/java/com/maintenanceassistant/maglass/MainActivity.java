@@ -38,6 +38,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * Created by Jake Uskoski on 2015-07-10.
+ */
+
 public class MainActivity extends Activity {
     private CardScrollView mCardScroller;
     private View mView;

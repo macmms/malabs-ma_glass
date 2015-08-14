@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Jake on 2015-07-17.
+ * Created by Jake Uskoski on 2015-07-17.
  */
 public class SeeTasksActivity extends Activity{
     private String mActivityController;

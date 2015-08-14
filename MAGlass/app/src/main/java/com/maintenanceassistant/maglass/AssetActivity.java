@@ -38,7 +38,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Created by Jake on 2015-07-23.
+ * Created by Jake Uskoski on 2015-07-23.
  */
 public class AssetActivity extends Activity {
     private CardScrollView mCardScroller;
