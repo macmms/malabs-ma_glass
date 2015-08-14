@@ -171,7 +171,7 @@ Each work order has three options:
 * [Change Status][head0608]
 
 [Back to Scan][head0604]  
-[Back to Asset][head0605]
+[Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
 ### 6.3 Scheduled Maintenance ###
@@ -300,7 +300,7 @@ MA Glass until its status is changed to an active status from the CMMS.
 There are no further options from Generate Work Order.
 
 [Back to Scan][head0604]  
-[Back to Asset][head0605]
+[Back to Asset][head0605]   
 [Back to Main Menu][head0601]
 <br>
 
