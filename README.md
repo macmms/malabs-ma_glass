@@ -238,6 +238,10 @@ touchpad.
 
 There are no further options from View More.
 
+[Back to Work Orders][head0602]  
+[Back to Scheduled Maintenance][head0603]  
+[Back to Scan][head0604]  
+[Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
 ### 6.7 See Tasks ###
