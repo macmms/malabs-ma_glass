@@ -13,6 +13,7 @@ import com.ma.cmms.api.client.dto.Asset;
 import com.ma.cmms.api.client.dto.User;
 import com.ma.cmms.api.crud.AddRequest;
 import com.ma.cmms.api.crud.AddResponse;
+import com.ma.cmms.api.crud.FindFilter;
 import com.ma.cmms.api.crud.FindRequest;
 import com.ma.cmms.api.crud.FindResponse;
 
@@ -36,6 +37,7 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,7 +48,8 @@ public class MainActivity extends Activity {
     private CardScrollView mCardScroller;
     private View mView;
     private GestureDetector mGestureDetector;
-    public static long SUPERUSER;
+    public static Long SUPERUSER;
+    public static Long SITEID;
     public static MaCmmsClient client;
     FindResponse< User > fRespU;
     AddResponse< Asset > aRespA;
@@ -65,14 +68,38 @@ public class MainActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
 
-        FindRequest< User > fReqU = client.prepareFind(User.class);
-        fReqU.setFields("id, strFullName");
-        fReqU.setMaxObjects(1);
-        fRespU = client.find(fReqU);
-        if (fRespU.getError() != null) {
-            finish();
-        } else {
-            SUPERUSER = fRespU.getObjects().get(0).getId();
+        if (SUPERUSER == null) {
+            FindRequest<User> fReqU = client.prepareFind(User.class);
+            fReqU.setFields("id, strFullName");
+            fReqU.setOrderBy("id");
+            fReqU.setMaxObjects(1);
+            fRespU = client.find(fReqU);
+            if (fRespU.getError() != null) {
+                finish();
+            } else {
+                SUPERUSER = fRespU.getObjects().get(0).getId();
+            }
+        }
+
+        if (SITEID == null) {
+            FindRequest< Asset > fReqA = client.prepareFind(Asset.class);
+            fReqA.setFields("id");
+            fReqA.setOrderBy("id");
+            fReqA.setMaxObjects(1);
+
+            FindFilter siteFilter = new FindFilter();
+            siteFilter.setQl("bolIsSite = ?");
+            List< Object > params = Arrays.asList((Object) 1);
+            siteFilter.setParameters(params);
+
+            fReqA.setFilters(Arrays.asList(siteFilter));
+
+            FindResponse< Asset > fRespA = client.find(fReqA);
+            if (fRespA.getError() != null) {
+                finish();
+            } else {
+                SITEID = fRespA.getObjects().get(0).getId();
+            }
         }
 
         mView = buildView();
@@ -162,6 +189,7 @@ public class MainActivity extends Activity {
         } else if (requestCode == ResultsActivity.PICK_STATUS && resultCode == RESULT_OK) {
             long id = data.getLongExtra(ResultsActivity.ID, ResultsActivity.EMPTY);
             newA = new Asset();
+            newA.setIntSiteID(SITEID);
             newA.setIntCategoryID(id);
             displaySpeechRecognizer("Add a note to the asset:");
         } else if (requestCode == ResultsActivity.SPEECH_REQUEST && resultCode == RESULT_OK) {

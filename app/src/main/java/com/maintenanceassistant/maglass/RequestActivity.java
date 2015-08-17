@@ -170,7 +170,7 @@ public class RequestActivity extends Activity {
             FindResponse<WorkOrderStatus> fRespWoS = MainActivity.client.find(fReqWoS);
 
             woObj.setIntWorkOrderStatusID(fRespWoS.getObjects().get(0).getId());
-            woObj.setIntSiteID(419608L);
+            woObj.setIntSiteID(MainActivity.SITEID);
             woObj.setIntMaintenanceTypeID(id);
 
             displaySpeechRecognizer("Summarize the work order");
