@@ -48,8 +48,8 @@ public class MainActivity extends Activity {
     private CardScrollView mCardScroller;
     private View mView;
     private GestureDetector mGestureDetector;
-    public static Long SUPERUSER;
-    public static Long SITEID;
+    public static Long SUPERUSER = null;
+    public static Long SITEID = null;
     public static MaCmmsClient client;
     FindResponse< User > fRespU;
     AddResponse< Asset > aRespA;
