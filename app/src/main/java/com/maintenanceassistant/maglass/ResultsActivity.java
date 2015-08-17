@@ -593,7 +593,7 @@ public class ResultsActivity extends Activity{
                     for (int j = 0; j < fRespA.getTotalObjects(); j++) {
                         if (fRespA.getObjects().get(j).getId().equals(mID)) {
                             if (notNegOne(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID"));
+                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID"));
                                 imageList.set(i, Integer.parseInt(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                 boolList.set(i, 1);
                             } else {
@@ -625,19 +625,19 @@ public class ResultsActivity extends Activity{
                             for (int k = 0; k < fRespA.getTotalObjects(); k++) {
                                 if (fRespA.getObjects().get(k).getId().equals(fRespWoA.getObjects().get(j).getIntAssetID())) {
                                     if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                        image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
+                                        image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
                                         imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                         boolList.set(i, 1);
                                     } else if (image == null) {
-                                        if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 1) {
+                                        if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 1) {
                                             image = getResources().getDrawable(R.drawable.default_facility);
                                             imageList.set(i, R.drawable.default_facility);
                                             boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 2) {
+                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 2) {
                                             image = getResources().getDrawable(R.drawable.default_asset);
                                             imageList.set(i, R.drawable.default_asset);
                                             boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 3) {
+                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 3) {
                                             image = getResources().getDrawable(R.drawable.default_tool);
                                             imageList.set(i, R.drawable.default_tool);
                                             boolList.set(i, 0);
@@ -660,7 +660,7 @@ public class ResultsActivity extends Activity{
                                     for (int l = 0; l < fRespA.getTotalObjects(); l++) {
                                         if (fRespA.getObjects().get(l).getId().equals(fRespS.getObjects().get(k).getIntAssetID())) {
                                             if (notNegOne(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                                image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID"));
+                                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID"));
                                                 imageList.set(i, Integer.parseInt(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                                 boolList.set(i, 1);
                                                 break;
@@ -678,7 +678,7 @@ public class ResultsActivity extends Activity{
                                 for(int k = 0; k < fRespA.getTotalObjects(); k++) {
                                     if (fRespA.getObjects().get(k).getId().equals(fRespWoP.getObjects().get(j).getIntPartID())) {
                                         if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                            image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
+                                            image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
                                             imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                             boolList.set(i, 1);
                                         } else if (image == null) {
@@ -910,7 +910,7 @@ public class ResultsActivity extends Activity{
                     for (int j = 0; j < fRespA.getTotalObjects(); j++) {
                         if (fRespA.getObjects().get(j).getId().equals(mID)) {
                             if (notNegOne(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID"));
+                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID"));
                                 imageList.set(i, Integer.parseInt(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                 boolList.set(i, 1);
                             } else {
@@ -942,19 +942,19 @@ public class ResultsActivity extends Activity{
                             for (int k = 0; k < fRespA.getTotalObjects(); k++) {
                                 if (fRespA.getObjects().get(k).getId().equals(fRespSMA.getObjects().get(j).getIntAssetID())) {
                                     if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                        image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
+                                        image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
                                         imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                         boolList.set(i, 1);
                                     } else if (image == null) {
-                                        if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 1) {
+                                        if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 1) {
                                             image = getResources().getDrawable(R.drawable.default_facility);
                                             imageList.set(i, R.drawable.default_facility);
                                             boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 2) {
+                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 2) {
                                             image = getResources().getDrawable(R.drawable.default_asset);
                                             imageList.set(i, R.drawable.default_asset);
                                             boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 3) {
+                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 3) {
                                             image = getResources().getDrawable(R.drawable.default_tool);
                                             imageList.set(i, R.drawable.default_tool);
                                             boolList.set(i, 0);
@@ -975,7 +975,7 @@ public class ResultsActivity extends Activity{
                                     for (int l = 0; l < fRespA.getTotalObjects(); l++) {
                                         if (fRespA.getObjects().get(l).getId().equals(fRespS.getObjects().get(k).getIntAssetID())) {
                                             if (notNegOne(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                                image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID"));
+                                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID"));
                                                 imageList.set(i, Integer.parseInt(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                                 boolList.set(i, 1);
                                             } else if (image == null) {
@@ -992,7 +992,7 @@ public class ResultsActivity extends Activity{
                                 for(int k = 0; k < fRespA.getTotalObjects(); k++) {
                                     if (fRespA.getObjects().get(k).getId().equals(fRespSMP.getObjects().get(j).getIntPartID())) {
                                         if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                            image = MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
+                                            image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
                                             imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
                                             boolList.set(i, 1);
                                         } else if (image == null) {

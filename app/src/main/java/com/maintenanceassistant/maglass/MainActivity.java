@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
-        BasicCredentials credentials = new BasicCredentials(getString(R.string.app_key), getString(R.string.api_key), getString(R.string.sec_key));
+        BasicCredentials credentials = new BasicCredentials(getString(R.string.app_key), getString(R.string.acs_key), getString(R.string.sec_key));
         client = new MaCmmsClient(credentials, getString(R.string.user_URL));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -309,6 +309,11 @@ public class MainActivity extends Activity {
                 .setText(R.string.app_name)
                 .setIcon(R.drawable.logo)
                 .getView();
+    }
+
+    public static String generateDownloadURL(String URL) {
+        int index = URL.indexOf("/api/");
+        return URL.substring(0, index);
     }
 
     public static Drawable LoadImageFromWebOperations(String url) {

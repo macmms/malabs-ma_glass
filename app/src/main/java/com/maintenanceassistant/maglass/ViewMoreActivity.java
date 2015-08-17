@@ -217,7 +217,7 @@ public class ViewMoreActivity extends Activity{
         String heading;
         String subheading;
         Drawable user = null;
-        String url = "https://juskoski.masandbox.com/fileDownload/?f=";
+        String url = MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=";
 
         if (fRespWo.getObject().getIntRequestedByUserID() != null) {
             if (fRespWo.getObject().getStrNameUserGuest() == null && fRespWo.getObject().getStrPhoneUserGuest() == null && fRespWo.getObject().getStrEmailUserGuest() == null) {
@@ -337,7 +337,7 @@ public class ViewMoreActivity extends Activity{
                     .setAttributionIcon(R.drawable.little_logo));
         } else if (boolVal == 1) {
             mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                    .addImage(MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + imageVal))
+                    .addImage(MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + imageVal))
                     .setText(Html.fromHtml(cardText))
                     .setAttributionIcon(R.drawable.little_logo));
         } else {
@@ -488,7 +488,7 @@ public class ViewMoreActivity extends Activity{
                     .setAttributionIcon(R.drawable.little_logo));
         } else if (boolVal == 1) {
             mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                    .addImage(MainActivity.LoadImageFromWebOperations("https://juskoski.masandbox.com/fileDownload/?f=" + imageVal))
+                    .addImage(MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + imageVal))
                     .setText(Html.fromHtml(cardText))
                     .setAttributionIcon(R.drawable.little_logo));
         } else {
@@ -505,7 +505,7 @@ public class ViewMoreActivity extends Activity{
         String heading;
         String subheading;
         Drawable user = null;
-        String url = "https://juskoski.masandbox.com/fileDownload/?f=";
+        String url = MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=";
 
         if (fRespU.getError() == null) {
             heading = "<font color=\"yellow\"><b>Requested by ";

@@ -244,7 +244,7 @@ public class AssetActivity extends Activity {
             int defaultImage = R.drawable.default_asset;
 
             if (fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID") != null && !fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID").equals(ResultsActivity.EMPTY)) {
-                String url = "https://juskoski.masandbox.com/fileDownload/?f=" + fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID");
+                String url = MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID");
                 image = MainActivity.LoadImageFromWebOperations(url);
 
                 mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
