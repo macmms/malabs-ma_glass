@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
 
             aRespA = client.add(aReqA);
 
-            if (aRespA.getError() != null) {
+            if (aRespA.getError() == null) {
                 Toast.makeText(this, "Asset successfully generated.", Toast.LENGTH_SHORT).show();
                 Intent resultIntent = new Intent(this, AssetActivity.class);
                 resultIntent.putExtra(ResultsActivity.ID, aRespA.getObject().getId());
