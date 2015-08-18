@@ -216,19 +216,12 @@ public class ViewMoreActivity extends Activity{
         //
         String heading;
         String subheading;
-        Drawable user = null;
-        String url = MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=";
 
         if (fRespWo.getObject().getIntRequestedByUserID() != null) {
             if (fRespWo.getObject().getStrNameUserGuest() == null && fRespWo.getObject().getStrPhoneUserGuest() == null && fRespWo.getObject().getStrEmailUserGuest() == null) {
                 fReqU.setId(fRespWo.getObject().getIntRequestedByUserID());
                 fReqU.setFields("strFullName, strUserTitle, strTelephone, strTelephone2, strEmailAddress, cf_intDefaultImageFileID");
                 FindByIdResponse<User> fRespU = MainActivity.client.findById(fReqU);
-
-                if (fRespU.getObject().getExtraFields().get("cf_intDefaultImageFileID") != null) {
-                    url += fRespU.getObject().getExtraFields().get("cf_intDefaultImageFileID");
-                    user = MainActivity.LoadImageFromWebOperations(url);
-                }
 
                 heading = "<font color=\"yellow\"><b>Requested by ";
                 if (fRespU.getObject().getStrFullName() != null) {
@@ -264,21 +257,12 @@ public class ViewMoreActivity extends Activity{
                     cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
                 }
 
-                if (user != null) {
-                    mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
-                            .setIcon(user)
-                            .setHeading(Html.fromHtml(heading))
-                            .setSubheading(Html.fromHtml(subheading))
-                            .setText(Html.fromHtml(cardText))
-                            .setAttributionIcon(R.drawable.little_logo));
-                } else {
-                    mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
-                            .setIcon(R.drawable.ic_person_50)
-                            .setHeading(Html.fromHtml(heading))
-                            .setSubheading(Html.fromHtml(subheading))
-                            .setText(Html.fromHtml(cardText))
-                            .setAttributionIcon(R.drawable.little_logo));
-                }
+                mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
+                        .setIcon(R.drawable.ic_person_50)
+                        .setHeading(Html.fromHtml(heading))
+                        .setSubheading(Html.fromHtml(subheading))
+                        .setText(Html.fromHtml(cardText))
+                        .setAttributionIcon(R.drawable.little_logo));
             } else {
                 heading = "<font color=\"yellow\"><b>Requested by ";
                 if(fRespWo.getObject().getStrNameUserGuest() != null) {
@@ -300,19 +284,12 @@ public class ViewMoreActivity extends Activity{
                 } else {
                     cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
                 }
-                if (user != null) {
-                    mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
-                            .setIcon(user)
-                            .setHeading(Html.fromHtml(heading))
-                            .setText(Html.fromHtml(cardText))
-                            .setAttributionIcon(R.drawable.little_logo));
-                } else {
-                    mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
-                            .setIcon(R.drawable.ic_person_50)
-                            .setHeading(Html.fromHtml(heading))
-                            .setText(Html.fromHtml(cardText))
-                            .setAttributionIcon(R.drawable.little_logo));
-                }
+
+                mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
+                        .setIcon(R.drawable.ic_person_50)
+                        .setHeading(Html.fromHtml(heading))
+                        .setText(Html.fromHtml(cardText))
+                        .setAttributionIcon(R.drawable.little_logo));
             }
         } else {
             cardText = "<font color=\"yellow\"><big><b>Requested by</b></font> <font color=\"gray\"><i>no one.</i></big></font><br />";
@@ -333,11 +310,6 @@ public class ViewMoreActivity extends Activity{
         if (boolVal == 0) {
             mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
                     .addImage(imageVal)
-                    .setText(Html.fromHtml(cardText))
-                    .setAttributionIcon(R.drawable.little_logo));
-        } else if (boolVal == 1) {
-            mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                    .addImage(MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + imageVal))
                     .setText(Html.fromHtml(cardText))
                     .setAttributionIcon(R.drawable.little_logo));
         } else {
@@ -486,11 +458,6 @@ public class ViewMoreActivity extends Activity{
                     .addImage(imageVal)
                     .setText(Html.fromHtml(cardText))
                     .setAttributionIcon(R.drawable.little_logo));
-        } else if (boolVal == 1) {
-            mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                    .addImage(MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + imageVal))
-                    .setText(Html.fromHtml(cardText))
-                    .setAttributionIcon(R.drawable.little_logo));
         } else {
             mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
                     .setText(Html.fromHtml(cardText))
@@ -504,8 +471,6 @@ public class ViewMoreActivity extends Activity{
         //
         String heading;
         String subheading;
-        Drawable user = null;
-        String url = MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=";
 
         if (fRespU.getError() == null) {
             heading = "<font color=\"yellow\"><b>Requested by ";
@@ -513,11 +478,6 @@ public class ViewMoreActivity extends Activity{
                 heading += fRespU.getObject().getStrFullName() + "</b></big></font>";
             } else {
                 heading += "</font><font color=\"gray\">(Missing name)</b></big></font>";
-            }
-
-            if (fRespU.getObject().getExtraFields() != null && fRespU.getObject().getExtraFields().get("cf_intDefaultImageFileID") != null) {
-                url += fRespU.getObject().getExtraFields().get("cf_intDefaultImageFileID").toString();
-                user = MainActivity.LoadImageFromWebOperations(url);
             }
 
             if(fRespU.getObject().getStrUserTitle() != null) {
@@ -547,21 +507,12 @@ public class ViewMoreActivity extends Activity{
                 cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
             }
 
-            if (user != null) {
-                mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
-                        .setIcon(user)
-                        .setHeading(Html.fromHtml(heading))
-                        .setSubheading(Html.fromHtml(subheading))
-                        .setText(Html.fromHtml(cardText))
-                        .setAttributionIcon(R.drawable.little_logo));
-            } else {
-                mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
-                        .setIcon(R.drawable.ic_person_50)
-                        .setHeading(Html.fromHtml(heading))
-                        .setSubheading(Html.fromHtml(subheading))
-                        .setText(Html.fromHtml(cardText))
-                        .setAttributionIcon(R.drawable.little_logo));
-            }
+            mCards.add(new CardBuilder(this, CardBuilder.Layout.AUTHOR)
+                    .setIcon(R.drawable.ic_person_50)
+                    .setHeading(Html.fromHtml(heading))
+                    .setSubheading(Html.fromHtml(subheading))
+                    .setText(Html.fromHtml(cardText))
+                    .setAttributionIcon(R.drawable.little_logo));
         } else {
             cardText = "<font color=\"yellow\"><big><b>Requested by</b></font> <font color=\"gray\"><i>no one.</i></big></font><br />";
             mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)

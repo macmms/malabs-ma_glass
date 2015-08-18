@@ -85,7 +85,6 @@ public class ResultsActivity extends Activity{
     private List< WorkOrder > woObj = new ArrayList<>();
     private List< ScheduledMaintenance > smObj = new ArrayList<>();
     private List< Integer > imageList = new ArrayList<>();
-    private List< Integer > boolList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -233,7 +232,6 @@ public class ResultsActivity extends Activity{
         resultsIntent.putExtra(SEARCH, activityController);
         resultsIntent.putExtra(ID, getObjId(mActivityController));
         resultsIntent.putExtra(IMAGE, imageList.get(mCardScroller.getSelectedItemPosition()));
-        resultsIntent.putExtra(BOOL, boolList.get(mCardScroller.getSelectedItemPosition()));
         startActivity(resultsIntent);
     }
 
@@ -372,7 +370,6 @@ public class ResultsActivity extends Activity{
         boolean flag;
         woObj = new ArrayList<>();
         imageList = new ArrayList<>();
-        boolList = new ArrayList<>();
         FindRequest< WorkOrderStatus > fReqWoS;
         FindResponse< WorkOrderStatus > WOStatus;
         FindRequest< WorkOrder > fReqWo;
@@ -496,7 +493,6 @@ public class ResultsActivity extends Activity{
                 if (flag) {
                     woObj.add(fRespWo.getObjects().get(i));
                     imageList.add(EMPTY);
-                    boolList.add(EMPTY);
                 }
             }
 
@@ -592,112 +588,58 @@ public class ResultsActivity extends Activity{
                 if (mID != EMPTY) {
                     for (int j = 0; j < fRespA.getTotalObjects(); j++) {
                         if (fRespA.getObjects().get(j).getId().equals(mID)) {
-                            if (notNegOne(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID"));
-                                imageList.set(i, Integer.parseInt(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                boolList.set(i, 1);
+                            if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 1) {
+                                image = getResources().getDrawable(R.drawable.default_facility);
+                                imageList.set(i, R.drawable.default_facility);
+                            } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 2) {
+                                image = getResources().getDrawable(R.drawable.default_asset);
+                                imageList.set(i, R.drawable.default_asset);
+                            } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 3) {
+                                image = getResources().getDrawable(R.drawable.default_tool);
+                                imageList.set(i, R.drawable.default_tool);
                             } else {
-                                if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 1) {
-                                    image = getResources().getDrawable(R.drawable.default_facility);
-                                    imageList.set(i, R.drawable.default_facility);
-                                    boolList.set(i, 0);
-                                } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 2) {
-                                    image = getResources().getDrawable(R.drawable.default_asset);
-                                    imageList.set(i, R.drawable.default_asset);
-                                    boolList.set(i, 0);
-                                } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 3) {
-                                    image = getResources().getDrawable(R.drawable.default_tool);
-                                    imageList.set(i, R.drawable.default_tool);
-                                    boolList.set(i, 0);
-                                } else {
-                                    image = getResources().getDrawable(R.drawable.default_part);
-                                    imageList.set(i, R.drawable.default_part);
-                                    boolList.set(i, 0);
-                                }
+                                image = getResources().getDrawable(R.drawable.default_part);
+                                imageList.set(i, R.drawable.default_part);
                             }
                         }
                     }
                 }
 
-                if (nullOrDefault(image) && fRespWoA != null && fRespWoA.getError() == null && fRespWoA.getTotalObjects() != 0) {
+                if (image == null && fRespWoA != null && fRespWoA.getError() == null && fRespWoA.getTotalObjects() != 0) {
                     for (int j = 0; j < fRespWoA.getTotalObjects(); j++) {
                         if (fRespWoA.getObjects().get(j).getIntWorkOrderID().equals(woObj.get(i).getId())) {
                             for (int k = 0; k < fRespA.getTotalObjects(); k++) {
                                 if (fRespA.getObjects().get(k).getId().equals(fRespWoA.getObjects().get(j).getIntAssetID())) {
-                                    if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                        image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
-                                        imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                        boolList.set(i, 1);
-                                    } else if (image == null) {
-                                        if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 1) {
-                                            image = getResources().getDrawable(R.drawable.default_facility);
-                                            imageList.set(i, R.drawable.default_facility);
-                                            boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 2) {
-                                            image = getResources().getDrawable(R.drawable.default_asset);
-                                            imageList.set(i, R.drawable.default_asset);
-                                            boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 3) {
-                                            image = getResources().getDrawable(R.drawable.default_tool);
-                                            imageList.set(i, R.drawable.default_tool);
-                                            boolList.set(i, 0);
-                                        }
+                                    if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 1) {
+                                        image = getResources().getDrawable(R.drawable.default_facility);
+                                        imageList.set(i, R.drawable.default_facility);
+                                    } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 2) {
+                                        image = getResources().getDrawable(R.drawable.default_asset);
+                                        imageList.set(i, R.drawable.default_asset);
+                                    } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 3) {
+                                        image = getResources().getDrawable(R.drawable.default_tool);
+                                        imageList.set(i, R.drawable.default_tool);
                                     }
                                 }
                             }
                         }
-                        if (!nullOrDefault(image)) {
-                            break;
-                        }
+                        if (image != null) break;
                     }
                 }
 
-                if (nullOrDefault(image) && fRespWoP.getTotalObjects() != 0) {
+                if (image == null && fRespWoP.getTotalObjects() != 0) {
                     for (int j = 0; j < fRespWoP.getTotalObjects(); j++) {
                         if (fRespWoP.getObjects().get(j).getIntWorkOrderID().equals(woObj.get(i).getId())) {
-                            for (int k = 0; k < fRespS.getTotalObjects(); k++) {
-                                if (fRespS.getObjects().get(k).getId().equals(fRespWoP.getObjects().get(j).getIntStockID())) {
-                                    for (int l = 0; l < fRespA.getTotalObjects(); l++) {
-                                        if (fRespA.getObjects().get(l).getId().equals(fRespS.getObjects().get(k).getIntAssetID())) {
-                                            if (notNegOne(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID"));
-                                                imageList.set(i, Integer.parseInt(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                                boolList.set(i, 1);
-                                                break;
-                                            } else if (image == null) {
-                                                image = getResources().getDrawable(R.drawable.default_part);
-                                                imageList.set(i, R.drawable.default_part);
-                                                boolList.set(i, 0);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (!nullOrDefault(image)) break;
-                            }
-                            if (nullOrDefault(image) && fRespWoP.getObjects().get(j).getIntPartID() != null) {
-                                for(int k = 0; k < fRespA.getTotalObjects(); k++) {
-                                    if (fRespA.getObjects().get(k).getId().equals(fRespWoP.getObjects().get(j).getIntPartID())) {
-                                        if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                            image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
-                                            imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                            boolList.set(i, 1);
-                                        } else if (image == null) {
-                                            image = getResources().getDrawable(R.drawable.default_part);
-                                            imageList.set(i, R.drawable.default_part);
-                                            boolList.set(i, 0);
-                                        }
-                                    }
-                                }
-                            }
+                            image = getResources().getDrawable(R.drawable.default_part);
+                            imageList.set(i, R.drawable.default_part);
+                            break;
                         }
-                        if (!nullOrDefault(image)) break;
                     }
                 }
 
                 if (image == null) {
                     image = this.getResources().getDrawable(R.drawable.default_null);
                     imageList.set(i, R.drawable.default_null);
-                    boolList.set(i, 0);
                 }
 
                 if (woObj.get(i).getIntMaintenanceTypeID() != null) {
@@ -740,7 +682,7 @@ public class ResultsActivity extends Activity{
                 }
             } else {
                 mCardScroller.setSelection(0);
-            }
+        }
         } else {
             AudioManager audio = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.ERROR);
@@ -844,9 +786,13 @@ public class ResultsActivity extends Activity{
                                     if (fRespSMP.getObjects().get(j).getIntScheduledMaintenanceID().equals(fRespSM.getObjects().get(i).getId())) {
                                         if (fRespSMP.getObjects().get(j).getIntStockID() != null) {
                                             for (int k = 0; k < fRespS.getTotalObjects(); k++) {
-                                                if (fRespS.getObjects().get(k).getId() != null && fRespS.getObjects().get(k).getIntAssetID().equals(mID) && fRespSMP.getObjects().get(j).getIntStockID().equals(fRespS.getObjects().get(k).getId())) check = true;
+                                                if (fRespS.getObjects().get(k).getId() != null && fRespS.getObjects().get(k).getIntAssetID().equals(mID) && fRespSMP.getObjects().get(j).getIntStockID().equals(fRespS.getObjects().get(k).getId())) {
+                                                    check = true;
+                                                }
                                             }
-                                        } else if (fRespSMP.getObjects().get(j).getIntPartID() != null && fRespSMP.getObjects().get(j).getIntPartID().equals(mID)) check = true;
+                                        } else if (fRespSMP.getObjects().get(j).getIntPartID() != null && fRespSMP.getObjects().get(j).getIntPartID().equals(mID)) {
+                                            check = true;
+                                        }
                                     }
                                 }
                                 if (!check) flag = false;
@@ -858,7 +804,6 @@ public class ResultsActivity extends Activity{
                 if (flag) {
                     smObj.add(fRespSM.getObjects().get(i));
                     imageList.add(EMPTY);
-                    boolList.add(EMPTY);
                 }
             }
 
@@ -909,109 +854,58 @@ public class ResultsActivity extends Activity{
                 if (mID != EMPTY) {
                     for (int j = 0; j < fRespA.getTotalObjects(); j++) {
                         if (fRespA.getObjects().get(j).getId().equals(mID)) {
-                            if (notNegOne(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID"));
-                                imageList.set(i, Integer.parseInt(fRespA.getObjects().get(j).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                boolList.set(i, 1);
+                            if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 1) {
+                                image = getResources().getDrawable(R.drawable.default_facility);
+                                imageList.set(i, R.drawable.default_facility);
+                            } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 2) {
+                                image = getResources().getDrawable(R.drawable.default_asset);
+                                imageList.set(i, R.drawable.default_asset);
+                            } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 3) {
+                                image = getResources().getDrawable(R.drawable.default_tool);
+                                imageList.set(i, R.drawable.default_tool);
                             } else {
-                                if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 1) {
-                                    image = getResources().getDrawable(R.drawable.default_facility);
-                                    imageList.set(i, R.drawable.default_facility);
-                                    boolList.set(i, 0);
-                                } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 2) {
-                                    image = getResources().getDrawable(R.drawable.default_asset);
-                                    imageList.set(i, R.drawable.default_asset);
-                                    boolList.set(i, 0);
-                                } else if (fRespA.getObjects().get(j).getIntSuperCategorySysCode() == 3) {
-                                    image = getResources().getDrawable(R.drawable.default_tool);
-                                    imageList.set(i, R.drawable.default_tool);
-                                    boolList.set(i, 0);
-                                } else {
-                                    image = getResources().getDrawable(R.drawable.default_part);
-                                    imageList.set(i, R.drawable.default_part);
-                                    boolList.set(i, 0);
-                                }
+                                image = getResources().getDrawable(R.drawable.default_part);
+                                imageList.set(i, R.drawable.default_part);
                             }
                         }
                     }
                 }
 
-                if (nullOrDefault(image) && fRespSMA != null && fRespSMA.getError() == null && fRespSMA.getTotalObjects() != 0) {
+                if (image == null && fRespSMA != null && fRespSMA.getError() == null && fRespSMA.getTotalObjects() != 0) {
                     for (int j = 0; j < fRespSMA.getTotalObjects(); j++) {
                         if (fRespSMA.getObjects().get(j).getIntScheduledMaintenanceID().equals(smObj.get(i).getId())) {
                             for (int k = 0; k < fRespA.getTotalObjects(); k++) {
                                 if (fRespA.getObjects().get(k).getId().equals(fRespSMA.getObjects().get(j).getIntAssetID())) {
-                                    if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                        image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
-                                        imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                        boolList.set(i, 1);
-                                    } else if (image == null) {
-                                        if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 1) {
-                                            image = getResources().getDrawable(R.drawable.default_facility);
-                                            imageList.set(i, R.drawable.default_facility);
-                                            boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 2) {
-                                            image = getResources().getDrawable(R.drawable.default_asset);
-                                            imageList.set(i, R.drawable.default_asset);
-                                            boolList.set(i, 0);
-                                        } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 3) {
-                                            image = getResources().getDrawable(R.drawable.default_tool);
-                                            imageList.set(i, R.drawable.default_tool);
-                                            boolList.set(i, 0);
-                                        }
+                                    if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 1) {
+                                        image = getResources().getDrawable(R.drawable.default_facility);
+                                        imageList.set(i, R.drawable.default_facility);
+                                    } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 2) {
+                                        image = getResources().getDrawable(R.drawable.default_asset);
+                                        imageList.set(i, R.drawable.default_asset);
+                                    } else if (fRespA.getObjects().get(k).getIntSuperCategorySysCode() == 3) {
+                                        image = getResources().getDrawable(R.drawable.default_tool);
+                                        imageList.set(i, R.drawable.default_tool);
                                     }
                                 }
                             }
                         }
-                        if (!nullOrDefault(image)) break;
+                        if (image != null) break;
                     }
                 }
 
-                if (nullOrDefault(image) && fRespSMP.getTotalObjects() != 0) {
+                if (image == null && fRespSMP.getTotalObjects() != 0) {
                     for (int j = 0; j < fRespSMP.getTotalObjects(); j++) {
                         if (fRespSMP.getObjects().get(j).getIntScheduledMaintenanceID().equals(smObj.get(i).getId())) {
-                            for (int k = 0; k < fRespS.getTotalObjects(); k++) {
-                                if (fRespS.getObjects().get(k).getId().equals(fRespSMP.getObjects().get(j).getIntStockID())) {
-                                    for (int l = 0; l < fRespA.getTotalObjects(); l++) {
-                                        if (fRespA.getObjects().get(l).getId().equals(fRespS.getObjects().get(k).getIntAssetID())) {
-                                            if (notNegOne(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                                image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID"));
-                                                imageList.set(i, Integer.parseInt(fRespA.getObjects().get(l).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                                boolList.set(i, 1);
-                                            } else if (image == null) {
-                                                image = getResources().getDrawable(R.drawable.default_part);
-                                                imageList.set(i, R.drawable.default_part);
-                                                boolList.set(i, 0);
-                                            }
-                                        }
-                                    }
-                                }
-                                if (!nullOrDefault(image)) break;
-                            }
-                            if (nullOrDefault(image) && fRespSMP.getObjects().get(j).getIntPartID() != null) {
-                                for(int k = 0; k < fRespA.getTotalObjects(); k++) {
-                                    if (fRespA.getObjects().get(k).getId().equals(fRespSMP.getObjects().get(j).getIntPartID())) {
-                                        if (notNegOne(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString())) {
-                                            image = MainActivity.LoadImageFromWebOperations(MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID"));
-                                            imageList.set(i, Integer.parseInt(fRespA.getObjects().get(k).getExtraFields().get("cf_intDefaultImageFileID").toString()));
-                                            boolList.set(i, 1);
-                                        } else if (image == null) {
-                                            image = getResources().getDrawable(R.drawable.default_part);
-                                            imageList.set(i, R.drawable.default_part);
-                                            boolList.set(i, 0);
-                                        }
-                                    }
-                                }
-                            }
+                            image = getResources().getDrawable(R.drawable.default_part);
+                            imageList.set(i, R.drawable.default_part);
+                            break;
                         }
-                        if (!nullOrDefault(image)) break;
                     }
                 }
 
                 if (image == null) {
                     image = this.getResources().getDrawable(R.drawable.default_null);
                     imageList.set(i, R.drawable.default_null);
-                    boolList.set(i, 0);
                 }
 
                 if (smObj.get(i).getIntMaintenanceTypeID() != null) {
@@ -1055,28 +949,6 @@ public class ResultsActivity extends Activity{
             audio.playSoundEffect(Sounds.ERROR);
             Toast.makeText(getApplicationContext(), "ERROR: " + fRespSM.getError().getLeg().toString(), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public boolean nullOrDefault(Drawable image) {
-
-        if (image == null) {
-            return true;
-        } else if (image.equals(getResources().getDrawable(R.drawable.default_facility))) {
-            return true;
-        } else if (image.equals(getResources().getDrawable(R.drawable.default_asset))) {
-            return true;
-        } else if (image.equals(getResources().getDrawable(R.drawable.default_tool))) {
-            return true;
-        } else if (image.equals(getResources().getDrawable(R.drawable.default_part))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean notNegOne (String id) {
-        if(id == null) return false;
-        return !(Integer.parseInt(id) == -1);
     }
 
     public static int hex2Rgb(String colorStr) {

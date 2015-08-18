@@ -240,37 +240,24 @@ public class AssetActivity extends Activity {
                 cardNote = "";
             }
 
-            Drawable image = null;
-            int defaultImage = R.drawable.default_asset;
-
-            if (fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID") != null && !fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID").equals(ResultsActivity.EMPTY)) {
-                String url = MainActivity.generateDownloadURL(getResources().getString(R.string.user_URL)) + "/fileDownload/?f=" + fRespA.getObject().getExtraFields().get("cf_intDefaultImageFileID");
-                image = MainActivity.LoadImageFromWebOperations(url);
-
-                mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
-                        .setText(Html.fromHtml(cardText))
-                        .setFootnote(Html.fromHtml(cardNote))
-                        .addImage(image)
-                        .setAttributionIcon(R.drawable.little_logo));
+            int defaultImage;
+            if (sysCode == 1) {
+                defaultImage = R.drawable.default_facility;
+            } else if (sysCode == 2) {
+                defaultImage = R.drawable.default_asset;
+            } else if (sysCode == 3) {
+                defaultImage = R.drawable.default_tool;
+            } else if (sysCode == 4) {
+                defaultImage = R.drawable.default_part;
             } else {
-                if (sysCode == 1) {
-                    defaultImage = R.drawable.default_facility;
-                } else if (sysCode == 2) {
-                    defaultImage = R.drawable.default_asset;
-                } else if (sysCode == 3) {
-                    defaultImage = R.drawable.default_tool;
-                } else if (sysCode == 4) {
-                    defaultImage = R.drawable.default_part;
-                } else {
-                    defaultImage = R.drawable.default_null;
-                }
-
-                mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
-                        .setText(Html.fromHtml(cardText))
-                        .setFootnote(Html.fromHtml(cardNote))
-                        .addImage(defaultImage)
-                        .setAttributionIcon(R.drawable.little_logo));
+                defaultImage = R.drawable.default_null;
             }
+
+            mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
+                    .setText(Html.fromHtml(cardText))
+                    .setFootnote(Html.fromHtml(cardNote))
+                    .addImage(defaultImage)
+                    .setAttributionIcon(R.drawable.little_logo));
 
             if (sysCode != 4) {
                 if (fRespA.getObject().getExtraFields().get("cf_getLatestReadingsFor") != null) {
@@ -307,17 +294,10 @@ public class AssetActivity extends Activity {
                         }
                     }
 
-                    if (image != null) {
-                        mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                                .setText(Html.fromHtml(cardText))
-                                .addImage(image)
-                                .setAttributionIcon(R.drawable.little_logo));
-                    } else {
-                        mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                                .setText(Html.fromHtml(cardText))
-                                .addImage(defaultImage)
-                                .setAttributionIcon(R.drawable.little_logo));
-                    }
+                    mCards.add(new CardBuilder(this, CardBuilder.Layout.COLUMNS)
+                            .setText(Html.fromHtml(cardText))
+                            .addImage(defaultImage)
+                            .setAttributionIcon(R.drawable.little_logo));
                 }
             }
         } else {
