@@ -34,23 +34,20 @@ import com.ma.cmms.api.batch.TxMode;
 import com.ma.cmms.api.client.dto.Asset;
 import com.ma.cmms.api.client.dto.MaintenanceType;
 import com.ma.cmms.api.client.dto.Priority;
+import com.ma.cmms.api.client.dto.WorkOrder;
+import com.ma.cmms.api.client.dto.WorkOrderStatus;
 import com.ma.cmms.api.client.dto.ScheduledMaintenance;
 import com.ma.cmms.api.client.dto.ScheduledMaintenanceAsset;
 import com.ma.cmms.api.client.dto.ScheduledMaintenancePart;
 import com.ma.cmms.api.client.dto.Stock;
 import com.ma.cmms.api.client.dto.WorkOrderAsset;
 import com.ma.cmms.api.client.dto.WorkOrderPart;
+import com.ma.cmms.api.crud.FindRequest;
+import com.ma.cmms.api.crud.FindResponse;
 import com.ma.cmms.api.crud.ChangeRequest;
 import com.ma.cmms.api.crud.ChangeResponse;
 import com.ma.cmms.api.crud.FindFilter;
 import com.maintenanceassistant.maglass.adapters.MainAdapter;
-
-import com.ma.cmms.api.client.BasicCredentials;
-import com.ma.cmms.api.client.MaCmmsClient;
-import com.ma.cmms.api.client.dto.WorkOrder;
-import com.ma.cmms.api.client.dto.WorkOrderStatus;
-import com.ma.cmms.api.crud.FindRequest;
-import com.ma.cmms.api.crud.FindResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;

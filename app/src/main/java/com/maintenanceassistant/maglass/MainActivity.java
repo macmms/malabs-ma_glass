@@ -20,7 +20,6 @@ import com.ma.cmms.api.crud.FindResponse;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -35,8 +34,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 

@@ -20,8 +20,6 @@ import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollView;
-import com.ma.cmms.api.client.BasicCredentials;
-import com.ma.cmms.api.client.MaCmmsClient;
 import com.ma.cmms.api.client.dto.Asset;
 import com.ma.cmms.api.client.dto.WorkOrder;
 import com.ma.cmms.api.client.dto.WorkOrderAsset;

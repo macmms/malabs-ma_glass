@@ -25,12 +25,9 @@ import com.ma.cmms.api.client.dto.WorkOrderTask;
 import com.ma.cmms.api.crud.ChangeRequest;
 import com.ma.cmms.api.crud.ChangeResponse;
 import com.ma.cmms.api.crud.FindFilter;
-import com.maintenanceassistant.maglass.adapters.MainAdapter;
-
-import com.ma.cmms.api.client.BasicCredentials;
-import com.ma.cmms.api.client.MaCmmsClient;
 import com.ma.cmms.api.crud.FindRequest;
 import com.ma.cmms.api.crud.FindResponse;
+import com.maintenanceassistant.maglass.adapters.MainAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

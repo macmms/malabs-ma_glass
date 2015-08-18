@@ -2,7 +2,6 @@ package com.maintenanceassistant.maglass;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
@@ -16,6 +15,7 @@ import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollView;
 import com.ma.cmms.api.client.dto.Asset;
 import com.ma.cmms.api.client.dto.MeterReadingUnit;
+import com.ma.cmms.api.client.dto.WorkOrder;
 import com.ma.cmms.api.client.dto.ScheduledMaintenance;
 import com.ma.cmms.api.client.dto.Stock;
 import com.ma.cmms.api.client.dto.User;
@@ -25,10 +25,6 @@ import com.ma.cmms.api.crud.FindFilter;
 import com.ma.cmms.api.crud.FindRequest;
 import com.ma.cmms.api.crud.FindResponse;
 import com.maintenanceassistant.maglass.adapters.MainAdapter;
-
-import com.ma.cmms.api.client.BasicCredentials;
-import com.ma.cmms.api.client.MaCmmsClient;
-import com.ma.cmms.api.client.dto.WorkOrder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
