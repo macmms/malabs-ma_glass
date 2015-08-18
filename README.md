@@ -374,4 +374,4 @@ more information.
 [NTC]: NOTICE.txt
 [STR]: app/src/main/res/values/strings.xml
 
-[BackToTop]: #ma-glass
+[BackToTop]: #ma-for-glass
