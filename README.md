@@ -47,6 +47,8 @@ assets, as well as generating new assets and work orders, linked to the paired
 CMMS. It is meant as a tool for maintenance staff during maintenance and walking,
 as a mobile, hands-free alternative to the MA Mobile App and the browser CMMS.
 
+Glass is a trademark of Google Inc.
+
 [Back to Top][BackToTop]
 <br>
 
