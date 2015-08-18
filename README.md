@@ -1,5 +1,5 @@
-MA Glass
-========
+MA for Glass™
+=============
 - - -
 
 TABLE OF CONTENTS
@@ -21,7 +21,8 @@ TABLE OF CONTENTS
   6.8 [Change Status ][head0608]  
   6.9 [Generate Work Order][head0609]  
 7. [Licensing][head0700]  
-9. [Change Log][head0800]  
+9. [Change Log][head0800]
+  [v1.0.1][v101]
   [v1.0.0][v100]
 
 
@@ -30,6 +31,7 @@ TABLE OF CONTENTS
 1 AUTHORS &amp; CONTRIBUTORS
 ----------------------------
 
+v1.0.1 Created August 18, 2015 by Jake Uskoski
 v1.0.0 Created August 14, 2015 by Jake Uskoski
 
 [Back to Top][BackToTop]
@@ -38,7 +40,7 @@ v1.0.0 Created August 14, 2015 by Jake Uskoski
 2 INTRODUCTION
 --------------
 
-MA Glass is a Google Glass application prototype for use in conjunction with the
+MA for Glass is a Google Glass application prototype for use in conjunction with the
 Maintenance Assistant Computerized Maintenance Management System (MA CMMS). MA
 Glass is capable of viewing active work orders, tasks, scheduled maintenance, and
 assets, as well as generating new assets and work orders, linked to the paired
@@ -77,7 +79,7 @@ To set up Android Studio for Google Glass, see the following page:
 &nbsp;&nbsp;&nbsp;[GDK Quick Start][AndStp]
   
 On the lower half of the page, there is a setup for beginners. After following
-the steps for preparing your Android Studio, you can either import MA Glass
+the steps for preparing your Android Studio, you can either import MA for Glass
 directly from GitHub using the following link:
 
 &nbsp;&nbsp;&nbsp;[https://github.com/macmms/malabs-ma_glass.git][GitRep]
@@ -95,7 +97,7 @@ With the files extracted, the project can be opened through Android Studio.
 5 INSTALLATION
 --------------
 
-The MA Glass application needs API credentials from the MA CMMS in order to
+The MA for Glass application needs API credentials from the MA CMMS in order to
 function. Three keys and a URL to the CMMS are required. To learn about getting
 your API keys, go to the web page:
 
@@ -131,7 +133,7 @@ The application will boot up on your Google Glass shortly after.
 
 ### 6.1 Main Menu ###
 
-Once the MA Glass program is running, a main menu screen will show. From this
+Once the MA for Glass program is running, a main menu screen will show. From this
 menu, the user can either open the menu by tapping the Google Glass touchpad
 once, or by saying "ok glass" loud enough for the microphone to hear.
 
@@ -295,10 +297,10 @@ Glass touchpad will validate that the information is correct and generate the
 work order. sliding a finger from the top of the Google Glass touchpad to the
 bottom will cancel the process and return the user to the asset cards.
 
-Work orders generated from the MA Glass application have a status of "requested".
+Work orders generated from the MA for Glass application have a status of "requested".
 Since "requested" is a pending status, and not an active one, the newly
 generated work order will not be shown in the list of work orders viewable by
-MA Glass until its status is changed to an active status from the CMMS.
+MA for Glass until its status is changed to an active status from the CMMS.
 
 There are no further options from Generate Work Order.
 
@@ -322,11 +324,18 @@ more information.
 8 CHANGE LOG
 ------------
 
+### v1.0.1 ###
+* Code cleanup
+* README corrections
+* Bug fixes
+* Removed web-based image loading
+* Name change due to branding
+
 ### v1.0.0 ###
 
 * Initial upload to GitHub
 * Initial project upload
-* Creation and Addition of a README.md
+* Creation and addition of a README.md
 
 [Back to Top][BackToTop]
 
@@ -351,6 +360,7 @@ more information.
 [head0800]: #8-change-log
 
 [v100]: #v100
+[v101]: #v101
 
 [AndStd]: https://developer.android.com/sdk/index.html
 [AndStp]: https://developers.google.com/glass/develop/gdk/quick-start?hl=en

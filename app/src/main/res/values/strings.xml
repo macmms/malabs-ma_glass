@@ -1,6 +1,6 @@
 <resources>
     <!-- Application Title -->
-    <string name="app_name">MA Glass</string>
+    <string name="app_name">MA for Glass™</string>
 
     <!-- Activity Titles -->
     <string name="title_activity_main">Maintenance Assistant</string>
@@ -11,9 +11,14 @@
     <string name="title_activity_asset">Asset</string>
     <string name="title_activity_request">Request Work Order</string>
 
-    <!-- API CREDENTIALS -->
+    <!-- API CREDENTIALS
     <string name="user_URL">URL here (with /api/ at the end)</string>
     <string name="app_key">Application Key Here</string>
     <string name="acs_key">Access Key Here</string>
     <string name="sec_key">Secret Key Here</string>
+    -->
+    <string name="user_URL">https://juskoski.masandbox.com/api/</string>
+    <string name="app_key">macmmsackp3846ec956de0e63f356f8752c2fc6c7bf3e51ace8448e7681b041</string>
+    <string name="acs_key">macmmsaakp384a9279c4030cb10d1350cad4f050494f1d394f0db18c1be88d4d0a8</string>
+    <string name="sec_key">macmmsaskp3846d5dd277d6cfa001f8512e9573410523bfec2d7665ddd2de5d2717872123fbb0</string>
 </resources>

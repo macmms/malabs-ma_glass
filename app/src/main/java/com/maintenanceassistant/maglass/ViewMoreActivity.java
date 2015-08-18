@@ -51,7 +51,6 @@ public class ViewMoreActivity extends Activity{
         StrictMode.setThreadPolicy(policy);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS);
         mCardScroller = new CardScrollView(this);
         mCards = new ArrayList<>();
 
