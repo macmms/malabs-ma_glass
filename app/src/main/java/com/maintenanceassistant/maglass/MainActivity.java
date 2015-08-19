@@ -24,6 +24,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.speech.RecognizerIntent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -42,6 +43,7 @@ import java.util.List;
  */
 
 public class MainActivity extends Activity {
+    private static final int KEY_SWIPE_DOWN = 4;
     private CardScrollView mCardScroller;
     private View mView;
     private GestureDetector mGestureDetector;
@@ -136,6 +138,112 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS || featureId ==  Window.FEATURE_OPTIONS_PANEL) {
+            switch (item.getItemId()) {
+                case R.id.work_orders:
+                    getMainResults("Work Orders");
+                    break;
+                case R.id.scheduled_maintenance:
+                    getMainResults("Scheduled Maintenance");
+                    break;
+                case R.id.scan_qr_code:
+                    scanAsset();
+                    break;
+                case R.id.generate_asset:
+                    pickStatus();
+                    break;
+            }
+            return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
+
+    private GestureDetector createGestureDetector(Context context) {
+        GestureDetector gestureDetector = new GestureDetector(context);
+
+        //Create a base listener for generic gestures
+        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
+            @Override
+            public boolean onGesture(Gesture gesture) {
+                if (gesture == Gesture.TAP) {
+                    openOptionsMenu();
+                    return true;
+                } else if (gesture == Gesture.TWO_TAP) {
+                    // do something on two finger tap
+                    return true;
+                } else if (gesture == Gesture.SWIPE_RIGHT) {
+                    // do something on right (forward) swipe
+                    return true;
+                } else if (gesture == Gesture.SWIPE_LEFT) {
+                    // do something on left (backwards) swipe
+                    return true;
+                } else if (gesture == Gesture.SWIPE_DOWN){
+                    //Toast.makeText(MainActivity.this, "Swipe down with two fingers to exit", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+
+        gestureDetector.setFingerListener(new GestureDetector.FingerListener() {
+            @Override
+            public void onFingerCountChanged(int previousCount, int currentCount) {
+                // do something on finger count changes
+            }
+        });
+
+        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
+            @Override
+            public boolean onScroll(float displacement, float delta, float velocity) {
+                // do something on scrolling
+                return true;
+            }
+        });
+
+        return gestureDetector;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KEY_SWIPE_DOWN)
+        {
+            Toast.makeText(MainActivity.this, "Swipe down with two fingers to exit", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        
+        super.onKeyDown(keyCode, event);
+        return false;
+    }
+
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        if (mGestureDetector != null) {
+            return mGestureDetector.onMotionEvent(event);
+        }
+        return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCardScroller.activate();
+    }
+
+    @Override
+    protected void onPause() {
+        mCardScroller.deactivate();
+        super.onPause();
+    }
+
+    private View buildView() {
+        return new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText(R.string.app_name)
+                .setIcon(R.drawable.logo)
+                .getView();
+    }
+
+    @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu){
         if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS || featureId ==  Window.FEATURE_OPTIONS_PANEL) {
             getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -222,99 +330,5 @@ public class MainActivity extends Activity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if (featureId == WindowUtils.FEATURE_VOICE_COMMANDS || featureId ==  Window.FEATURE_OPTIONS_PANEL) {
-            switch (item.getItemId()) {
-                case R.id.work_orders:
-                    getMainResults("Work Orders");
-                    break;
-                case R.id.scheduled_maintenance:
-                    getMainResults("Scheduled Maintenance");
-                    break;
-                case R.id.scan_qr_code:
-                    scanAsset();
-                    break;
-                case R.id.generate_asset:
-                    pickStatus();
-                    break;
-            }
-            return true;
-        }
-        return super.onMenuItemSelected(featureId, item);
-    }
-
-    private GestureDetector createGestureDetector(Context context) {
-        GestureDetector gestureDetector = new GestureDetector(context);
-
-        //Create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
-            @Override
-            public boolean onGesture(Gesture gesture) {
-                if (gesture == Gesture.TAP) {
-                    openOptionsMenu();
-                    return true;
-                } else if (gesture == Gesture.TWO_TAP) {
-                    // do something on two finger tap
-                    return true;
-                } else if (gesture == Gesture.SWIPE_RIGHT) {
-                    // do something on right (forward) swipe
-                    return true;
-                } else if (gesture == Gesture.SWIPE_LEFT) {
-                    // do something on left (backwards) swipe
-                    return true;
-                } else if (gesture == Gesture.SWIPE_DOWN){
-                    Toast.makeText(MainActivity.this, "Swipe down with two fingers to exit", Toast.LENGTH_SHORT).show();
-                }
-                return false;
-            }
-        });
-
-        gestureDetector.setFingerListener(new GestureDetector.FingerListener() {
-            @Override
-            public void onFingerCountChanged(int previousCount, int currentCount) {
-                // do something on finger count changes
-            }
-        });
-
-        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
-            @Override
-            public boolean onScroll(float displacement, float delta, float velocity) {
-                // do something on scrolling
-                return true;
-            }
-        });
-
-        return gestureDetector;
-    }
-
-    @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
-        if (mGestureDetector != null) {
-            return mGestureDetector.onMotionEvent(event);
-        }
-        return false;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mCardScroller.activate();
-    }
-
-    @Override
-    protected void onPause() {
-        mCardScroller.deactivate();
-        super.onPause();
-    }
-
-    private View buildView() {
-        return new CardBuilder(this, CardBuilder.Layout.MENU)
-                .setText(R.string.app_name)
-                .setIcon(R.drawable.logo)
-                .getView();
     }
 }
