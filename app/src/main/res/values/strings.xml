@@ -10,6 +10,7 @@
     <string name="title_see_tasks">Tasks</string>
     <string name="title_activity_asset">Asset</string>
     <string name="title_activity_request">Request Work Order</string>
+    <string name="title_activity_delay">Delay</string>
 
     <!-- API CREDENTIALS -->
     <string name="user_URL">URL here (with /api/ at the end)</string>

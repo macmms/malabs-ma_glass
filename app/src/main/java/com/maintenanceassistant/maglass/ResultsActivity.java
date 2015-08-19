@@ -61,7 +61,9 @@ public class ResultsActivity extends Activity{
     public static final String EXTRA_PROMPT = "android.speech.extra.PROMPT";
     public static final int SPEECH_REQUEST = 0;
     public static final int PICK_STATUS = 1;
-    public static final int SCAN_QR = 2;
+    public static final int PICK_TYPE = 2;
+    public static final int SCAN_QR = 3;
+    public static final int DELAY = 4;
     public static final int EMPTY = -1;
     public static final String SEARCH = "search";
     public static final String ID = "id";
@@ -72,6 +74,8 @@ public class ResultsActivity extends Activity{
     public static final String SCH_MAINTENANCE = "Scheduled Maintenance";
     public static final String ASSET = "Asset";
     public static final String GENERATE = "generate";
+    public static final String TEXT = "text";
+    public static final String NOTE = "note";
     private String mActivityController;
     private CardScrollView mCardScroller;
     private List< CardBuilder > mCards;

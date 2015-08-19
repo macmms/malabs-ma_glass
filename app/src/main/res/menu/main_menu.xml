@@ -4,7 +4,7 @@
     <item android:id="@+id/scheduled_maintenance"
         android:title="Scheduled Maintenance"/>
     <item android:id="@+id/scan_qr_code"
-        android:title="Scan QR Code"/>
+        android:title="Scan Asset QR Code"/>
     <item android:id="@+id/generate_asset"
         android:title="Generate Asset"/>
 </menu>

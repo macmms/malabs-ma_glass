@@ -162,6 +162,13 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, ResultsActivity.PICK_STATUS);
     }
 
+    public void delay(String text, String note) {
+        Intent intent = new Intent(this, DelayActivity.class);
+        intent.putExtra(ResultsActivity.TEXT, text);
+        intent.putExtra(ResultsActivity.NOTE, note);
+        startActivityForResult(intent, ResultsActivity.DELAY);
+    }
+
     private void displaySpeechRecognizer(String text) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(ResultsActivity.EXTRA_PROMPT, text);
@@ -188,6 +195,9 @@ public class MainActivity extends Activity {
             newA = new Asset();
             newA.setIntSiteID(SITEID);
             newA.setIntCategoryID(id);
+
+            delay("Tap to Describe Asset", "This will begin speech recognition.");
+        } else if (requestCode == ResultsActivity.DELAY && resultCode == RESULT_OK) {
             displaySpeechRecognizer("Add a note to the asset:");
         } else if (requestCode == ResultsActivity.SPEECH_REQUEST && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -200,7 +210,7 @@ public class MainActivity extends Activity {
             aRespA = client.add(aReqA);
 
             if (aRespA.getError() == null) {
-                Toast.makeText(this, "Asset successfully generated.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Asset successfully generated", Toast.LENGTH_SHORT).show();
                 Intent resultIntent = new Intent(this, AssetActivity.class);
                 resultIntent.putExtra(ResultsActivity.ID, aRespA.getObject().getId());
                 startActivity(resultIntent);
@@ -208,7 +218,7 @@ public class MainActivity extends Activity {
                 Toast.makeText(this, "Failed to generate asset", Toast.LENGTH_SHORT).show();
             }
         } else if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -257,7 +267,7 @@ public class MainActivity extends Activity {
                     // do something on left (backwards) swipe
                     return true;
                 } else if (gesture == Gesture.SWIPE_DOWN){
-                    finish();
+                    Toast.makeText(MainActivity.this, "Swipe down with two fingers to exit", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }

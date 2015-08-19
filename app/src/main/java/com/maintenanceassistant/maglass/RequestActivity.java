@@ -145,14 +145,26 @@ public class RequestActivity extends Activity {
 
     private void pickStatus() {
         Intent intent = new Intent(this, PickStatusActivity.class);
-        intent.putExtra(ResultsActivity.SEARCH, ResultsActivity.ASSET);
+        intent.putExtra(ResultsActivity.SEARCH, ResultsActivity.CODE);
         startActivityForResult(intent, ResultsActivity.PICK_STATUS);
+    }
+
+    private void pickType() {
+        Intent intent = new Intent(this, PickStatusActivity.class);
+        intent.putExtra(ResultsActivity.SEARCH, ResultsActivity.ASSET);
+        startActivityForResult(intent, ResultsActivity.PICK_TYPE);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ResultsActivity.PICK_STATUS && resultCode == RESULT_OK) {
+            long id = data.getLongExtra(ResultsActivity.ID, ResultsActivity.EMPTY);
+
+            woObj.setIntWorkOrderStatusID(id);
+
+            pickType();
+        } else if (requestCode == ResultsActivity.PICK_TYPE && resultCode == RESULT_OK) {
             long id = data.getLongExtra(ResultsActivity.ID, ResultsActivity.EMPTY);
             status = data.getStringExtra(ResultsActivity.CODE);
 
@@ -183,16 +195,16 @@ public class RequestActivity extends Activity {
             String cardText = "<font color=\"yellow\"><b>Maintenance Type:</b></font> " + status + "<br />"
                     + "<font color=\"yellow\"><b>For:</b></font> " + fRespA.getObject().getStrName() + "<br />"
                     + "<font color=\"yellow\"><b>Summary:</b></font> " + woObj.getStrDescription();
+            String cardNote = "Tap to confirm";
 
             mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
                     .setText(Html.fromHtml(cardText))
+                    .setFootnote(Html.fromHtml(cardNote))
                     .setAttributionIcon(R.drawable.little_logo));
 
             mCardScroller.setAdapter(new MainAdapter(mCards));
 
             ready = true;
-
-            Toast.makeText(getApplicationContext(), "Tap to confirm", Toast.LENGTH_LONG).show();
 
             // Handle the TAP event.
             mCardScroller.setOnItemClickListener(new AdapterView.OnItemClickListener() {

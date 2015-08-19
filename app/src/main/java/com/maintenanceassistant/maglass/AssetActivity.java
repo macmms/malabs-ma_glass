@@ -209,7 +209,7 @@ public class AssetActivity extends Activity {
         String cardNote;
         FindByIdRequest<Asset> fReqA = MainActivity.client.prepareFindById(Asset.class);
         fReqA.setId(mID);
-        fReqA.setFields("strName, strCode, bolIsOnline, intSuperCategorySysCode, dv_intCategoryID, dv_intLastMeterReadingUnitID, cf_getLatestReadingsFor, cf_intDefaultImageFileID");
+        fReqA.setFields("strName, strCode, strDescription, bolIsOnline, intSuperCategorySysCode, dv_intCategoryID, dv_intLastMeterReadingUnitID, cf_getLatestReadingsFor, cf_intDefaultImageFileID");
         FindByIdResponse<Asset> fRespA = MainActivity.client.findById(fReqA);
 
         if (fRespA.getError() == null) {
@@ -229,6 +229,13 @@ public class AssetActivity extends Activity {
                 cardText += fRespA.getObject().getExtraFields().get("dv_intCategoryID") + "<br />";
             } else {
                 cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
+            }
+
+            cardText += "<font color=\"yellow\"><b>Description:</b></font> ";
+            if (fRespA.getObject().getStrDescription() != null) {
+                cardText += fRespA.getObject().getStrDescription();
+            } else {
+                cardText += "<font color=\"gray\"><i>Not entered.</i></font>";
             }
 
             if (fRespA.getObject().getBolIsOnline() != null) {

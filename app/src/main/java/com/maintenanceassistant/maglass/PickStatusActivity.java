@@ -61,6 +61,7 @@ public class PickStatusActivity extends Activity {
         getStatuses();
 
         if (mCards.size() == 0) {
+            setResult(RESULT_CANCELED);
             finish();
         }
 
@@ -81,6 +82,8 @@ public class PickStatusActivity extends Activity {
                     intent.putExtra(ResultsActivity.CODE, mtObj.get(mCardScroller.getSelectedItemPosition()).getStrName());
                 } else if (mActivityController.equals(ResultsActivity.GENERATE)) {
                     intent.putExtra(ResultsActivity.ID, acObj.get(mCardScroller.getSelectedItemPosition()).getId());
+                } else if (mActivityController.equals(ResultsActivity.CODE)) {
+                    intent.putExtra(ResultsActivity.ID, wsObj.get(mCardScroller.getSelectedItemPosition()).getId());
                 }
 
                 setResult(RESULT_OK, intent);
@@ -208,7 +211,7 @@ public class PickStatusActivity extends Activity {
                 DisplayMetrics metrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(metrics);
                 Bitmap bmp = Bitmap.createBitmap(metrics, 640, 320, conf);
-                bmp.eraseColor(hex2Rgb(fRespMT.getObjects().get(i).getStrColor()));
+                bmp.eraseColor(ResultsActivity.hex2Rgb(fRespMT.getObjects().get(i).getStrColor()));
                 mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
                         .addImage(bmp)
                         .setText(cardText)
@@ -232,7 +235,6 @@ public class PickStatusActivity extends Activity {
 
             for (int i = 0; acObj.size() > i; i++) {
                 long checkSysCode = recurseParent(acObj.get(i), acObj.get(i), fRespAC);
-                System.out.println(checkSysCode);
                 int image;
 
                 if (acObj.get(i).getStrName() != null) {
@@ -257,6 +259,30 @@ public class PickStatusActivity extends Activity {
                         .setIcon(image)
                         .setText(cardText)
                         .setFootnote(cardNote));
+            }
+        } else if (mActivityController.equals(ResultsActivity.CODE)) {
+            FindRequest<WorkOrderStatus> fReqWoS = MainActivity.client.prepareFind(WorkOrderStatus.class);
+            fReqWoS.setFields("id, strName, intControlID");
+            FindResponse<WorkOrderStatus> fRespWoS = MainActivity.client.find(fReqWoS);
+            wsObj = new ArrayList<>();
+            cardNote = "Tap to select";
+
+            int listSize = fRespWoS.getTotalObjects();
+            wsObj = fRespWoS.getObjects();
+            for (int i = 0; listSize > i; i++) {
+                if (fRespWoS.getObjects().get(i).getIntControlID() == 100) {
+                    wsObj.add(fRespWoS.getObjects().get(i));
+
+                    if (fRespWoS.getObjects().get(i).getStrName() != null) {
+                        cardText = fRespWoS.getObjects().get(i).getStrName();
+                    } else {
+                        cardText = "This status has no name.";
+                    }
+
+                    mCards.add(new CardBuilder(this, CardBuilder.Layout.MENU)
+                            .setText(cardText)
+                            .setFootnote(cardNote));
+                }
             }
         }
 
@@ -283,11 +309,5 @@ public class PickStatusActivity extends Activity {
         }
 
         return finalReturn;
-    }
-
-    public static int hex2Rgb(String colorStr) {
-        String tempStr = "#".concat(colorStr.toUpperCase());
-        int returnInt = Color.parseColor(tempStr);
-        return returnInt;
     }
 }
