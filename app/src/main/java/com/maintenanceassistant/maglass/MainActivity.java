@@ -24,6 +24,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.speech.RecognizerIntent;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -211,7 +212,7 @@ public class MainActivity extends Activity {
             Toast.makeText(MainActivity.this, "Swipe down with two fingers to exit", Toast.LENGTH_SHORT).show();
             return false;
         }
-        
+
         super.onKeyDown(keyCode, event);
         return false;
     }
@@ -238,7 +239,7 @@ public class MainActivity extends Activity {
 
     private View buildView() {
         return new CardBuilder(this, CardBuilder.Layout.MENU)
-                .setText(R.string.app_name)
+                .setText(Html.fromHtml("<b>" + getResources().getString(R.string.app_name) + "</b>"))
                 .setIcon(R.drawable.logo)
                 .getView();
     }

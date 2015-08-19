@@ -21,6 +21,7 @@ import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollView;
 import com.ma.cmms.api.client.dto.ScheduledTask;
+import com.ma.cmms.api.client.dto.WorkOrder;
 import com.ma.cmms.api.client.dto.WorkOrderTask;
 import com.ma.cmms.api.crud.ChangeRequest;
 import com.ma.cmms.api.crud.ChangeResponse;
@@ -260,53 +261,60 @@ public class SeeTasksActivity extends Activity{
                 return;
             }
 
-            int listSize = fRespST.getTotalObjects();
-            stObj = new ArrayList<>();
-            for (int i = 0; listSize > i; i++) {
-                int flag = 0;
-                for (int j = 0; listSize > j; j++) {
-                    if (fRespST.getObjects().get(j).getIntOrder() == i + 1) {
-                        flag = j;
-                        stObj.add(fRespST.getObjects().get(j));
+            stObj = fRespST.getObjects();
+
+            ScheduledTask temp;
+            for (int i = 1; i < stObj.size(); i++)
+            {
+                for (int j = i; j > 0; j--)
+                {
+                    if (stObj.get(j).getIntOrder() < stObj.get(j).getIntOrder()) {
+                        temp = stObj.get(j);
+                        stObj.set(j, stObj.get(j - 1));
+                        stObj.set(j - 1, temp);
                     }
                 }
+            }
 
-                if (fRespST.getObjects().get(flag).getStrDescription() != null) {
-                    cardText = "<b><font color=\"yellow\">Task:</font> " + fRespST.getObjects().get(flag).getStrDescription() + "</b>";
+            for (int i = 0; stObj.size() > i; i++) {
+                if (stObj.get(i).getStrDescription() != null) {
+                    cardText = "<font color=\"yellow\"><b>Task:</b></font> <b>" + stObj.get(i).getStrDescription() + "</b>";
                 } else {
-                    cardText = "<b><i>This task has no description.</i></b>";
+                    cardText = "<font color=\"yellow\"><b>Task:</b></font> <font color=\"gray\"><i><b>This task has no description.</b></i></font>";
                 }
 
-                if (fRespST.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID") != null) {
-                    cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> " + fRespST.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID");
+                if (stObj.get(i).getExtraFields().get("dv_intAssignedToUserID") != null) {
+                    cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> " + stObj.get(i).getExtraFields().get("dv_intAssignedToUserID");
                 } else {
-                    cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> <i>No one.</i>";
+                    cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> <font color=\"gray\"><i>No one.</i></font>";
                 }
 
-                if (fRespST.getObjects().get(flag).getIntTaskType() == 0) {
-                    cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> General";
-                } else if (fRespST.getObjects().get(flag).getIntTaskType() == 1) {
+                if (stObj.get(i).getIntTaskType() == null) {
+                    cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <i><font color=\"gray\">General</font></i>";
+                } if (stObj.get(i).getIntTaskType() == 0) {
+                    cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <i><font color=\"gray\">General</font></i>";
+                } else if (stObj.get(i).getIntTaskType() == 1) {
                     cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
-                } else {
-                    if (fRespST.getObjects().get(flag).getExtraFields().get("dv_intMeterReadingID") != null) {
-                        cardText += "<br /><font color=\"yellow\"><b>Task Type:<b></font> Meter Reading - " + fRespST.getObjects().get(flag).getExtraFields().get("dv_intMeterReadingID");
+                } else if (stObj.get(i).getIntTaskType() == 2) {
+                    if (stObj.get(i).getExtraFields().get("dv_intMeterReadingID") != null) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:<b></font> Meter Reading - " + stObj.get(i).getExtraFields().get("dv_intMeterReadingID");
                     } else {
-                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading - <i>Unit not entered.</i>";
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading - <font color=\"gray\"><i>Unit not entered.</i></font>";
                     }
                 }
 
-                if (fRespST.getObjects().get(flag).getDblTimeEstimatedHours() != null) {
-                    if (fRespST.getObjects().get(flag).getDblTimeEstimatedHours() != 1.0){
-                        cardStamp = fRespST.getObjects().get(flag).getDblTimeEstimatedHours().toString() + " Hours";
+                if (stObj.get(i).getDblTimeEstimatedHours() != null) {
+                    if (stObj.get(i).getDblTimeEstimatedHours() != 1.0){
+                        cardStamp = stObj.get(i).getDblTimeEstimatedHours().toString() + " Hours";
                     } else {
-                        cardStamp = fRespST.getObjects().get(flag).getDblTimeEstimatedHours().toString() + " Hour";
+                        cardStamp = stObj.get(i).getDblTimeEstimatedHours().toString() + " Hour";
                     }
                 } else {
-                    cardStamp = "<font color=\"gray\"><i>No estimated time.</i></font>";
+                    cardStamp = "<font color=\"gray\"><i>No Estimate</i></font>";
                 }
 
-                if (fRespST.getObjects().get(flag).getExtraFields().get("dv_intAssetID") != null) {
-                    cardNote = fRespST.getObjects().get(flag).getExtraFields().get("dv_intAssetID").toString();
+                if (stObj.get(i).getExtraFields().get("dv_intAssetID") != null) {
+                    cardNote = stObj.get(i).getExtraFields().get("dv_intAssetID").toString();
                 } else {
                     cardNote = "<font color=\"gray\"><i>No assigned asset</i></font>";
                 }
@@ -333,117 +341,123 @@ public class SeeTasksActivity extends Activity{
                 return;
             }
 
-            int listSize = fRespWoT.getTotalObjects();
-            wtObj = new ArrayList<>();
-            for (int i = 0; listSize > i; i++) {
-                int flag = 0;
-                for (int j = 0; listSize > j; j++) {
-                    if (fRespWoT.getObjects().get(j).getIntOrder() == i + 1) {
-                        flag = j;
-                        wtObj.add(fRespWoT.getObjects().get(j));
-                        break;
+            wtObj = fRespWoT.getObjects();
+
+            WorkOrderTask temp;
+            for (int i = 1; i < wtObj.size(); i++)
+            {
+                for (int j = i; j > 0; j--)
+                {
+                    if (wtObj.get(j).getIntOrder() < wtObj.get(j).getIntOrder()) {
+                        temp = wtObj.get(j);
+                        wtObj.set(j, wtObj.get(j - 1));
+                        wtObj.set(j - 1, temp);
                     }
                 }
+            }
 
-                if (fRespWoT.getObjects().get(flag).getIntTaskType() != null) {
-                    if (fRespWoT.getObjects().get(flag).getStrDescription() != null) {
-                        cardText = "<b><font color=\"yellow\">Task:</font> " + fRespWoT.getObjects().get(flag).getStrDescription() + "</b>";
-                    } else {
-                        cardText = "<font color=\"gray\"><b><i>This task has no description.</i></b></font>";
+            for (int i = 0; wtObj.size() > i; i++) {
+                if (wtObj.get(i).getStrDescription() != null) {
+                    cardText = "<font color=\"yellow\"><b>Task:</b></font> " + wtObj.get(i).getStrDescription() + "</b>";
+                } else {
+                    cardText = "<font color=\"yellow\"><b>Task:</b></font> <font color=\"gray\"><b><i>This task has no description.</i></b></font>";
+                }
+
+                if (wtObj.get(i).getDtmDateCompleted() != null) {
+                    if (wtObj.get(i).getIntTaskType() == null) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <font color=\"gray\"><i>General</i></font>";
+                    }else if (wtObj.get(i).getIntTaskType() == 0) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <font color=\"gray\"><i>General</i></font>";
+                    } else if (wtObj.get(i).getIntTaskType() == 1) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
+                        if (wtObj.get(i).getStrResult() != null) {
+                            cardText += "<br /><font color=\"yellow\"><b>Result:</b></font> " + wtObj.get(i).getStrResult();
+                        } else {
+                            cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
+                        }
+                    } else if (wtObj.get(i).getIntTaskType() == 2) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading";
+                        if (wtObj.get(i).getStrResult() != null) {
+                            if (wtObj.get(i).getExtraFields().get("dv_intMeterReadingUnitID") != null) {
+                                cardText += "<br /><font color=\"yellow\"><b>Result:</b></font> " + wtObj.get(i).getStrResult() + " " + wtObj.get(i).getExtraFields().get("dv_intMeterReadingUnitID");
+                            } else {
+                                cardText += "<br /><font color=\"yellow\"><b>Result:</b></font> " + wtObj.get(i).getStrResult() + " <font color=\"gray\"><i>(Unit not entered)</i></font>";
+                            }
+                        } else {
+                            cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
+                        }
                     }
 
-                    if (fRespWoT.getObjects().get(flag).getDtmDateCompleted() != null) {
-                        if (fRespWoT.getObjects().get(flag).getIntTaskType() == 0) {
-                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <i>General</i>";
-                        } else if (fRespWoT.getObjects().get(flag).getIntTaskType() == 1) {
-                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
-                            if (fRespWoT.getObjects().get(flag).getStrResult() != null) {
-                                cardText += "<br /><font color=\"yellow\"><b>Result:</b></font> " + fRespWoT.getObjects().get(flag).getStrResult();
-                            } else {
-                                cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
-                            }
-                        } else {
-                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading";
-                            if (fRespWoT.getObjects().get(flag).getStrResult() != null) {
-                                if (fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intMeterReadingUnitID") != null) {
-                                    cardText += "<br /><font color=\"yellow\"><b>Result:</b></font> " + fRespWoT.getObjects().get(flag).getStrResult() + " " + fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intMeterReadingUnitID");
-                                } else {
-                                    cardText += "<br /><font color=\"yellow\"><b>Result:</b></font> " + fRespWoT.getObjects().get(flag).getStrResult() + " <font color=\"gray\"><i>(Unit not entered)</i></font>";
-                                }
-                            } else {
-                                cardText += "<font color=\"gray\"><i>Not entered.</i></font><br />";
-                            }
-                        }
-
-                        if (fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID") != null) {
-                            cardText += "<br /><font color=\"yellow\"><b>Completed by:</b></font> " + fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intCompletedByUserID");
-                        } else {
-                            if (fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID") != null) {
-                                cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> " + fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID");
-                            } else {
-                                cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> <font color=\"gray\"><i>No one.</i></font>";
-                            }
-                        }
-
-                        cardText += "<br /><font color=\"yellow\"><b>Completed on:</b></font> " + fRespWoT.getObjects().get(flag).getDtmDateCompleted();
-
-                        if (fRespWoT.getObjects().get(flag).getDblTimeSpentHours() != null) {
-                            if (fRespWoT.getObjects().get(flag).getDblTimeSpentHours() != 1.0) {
-                                cardStamp = "<font color=\"yellow\"><b>Took:</b></font> " + fRespWoT.getObjects().get(flag).getDblTimeSpentHours().toString() + " Hours";
-                            } else {
-                                cardStamp = "<font color=\"yellow\"><b>Took:</b></font> " + fRespWoT.getObjects().get(flag).getDblTimeSpentHours().toString() + " Hour";
-                            }
-                        } else {
-                            if (fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours() != null) {
-                                if (fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours() != 1.0) {
-                                    cardStamp = "<font color=\"yellow\"><b>Estimate:</b></font> " + fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours().toString() + " Hours";
-                                } else {
-                                    cardStamp = "<font color=\"yellow\"><b>Estimate:</b></font> " + fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours().toString() + " Hour";
-                                }
-                            } else {
-                                cardStamp = "<font color=\"gray\"><i>No time taken.</i></font>";
-                            }
-                        }
+                    if (wtObj.get(i).getExtraFields().get("dv_intAssignedToUserID") != null) {
+                        cardText += "<br /><font color=\"yellow\"><b>Completed by:</b></font> " + wtObj.get(i).getExtraFields().get("dv_intCompletedByUserID");
                     } else {
-                        if (fRespWoT.getObjects().get(flag).getIntTaskType() == 0) {
-                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> General";
-                        } else if (fRespWoT.getObjects().get(flag).getIntTaskType() == 1) {
-                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
-                        } else {
-                            if (fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intMeterReadingUnitID") != null) {
-                                cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading - " + fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intMeterReadingUnitID");
-                            } else {
-                                cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading - <color font=\"gray\"><i>Unit not entered.</i></font>";
-                            }
-                        }
-
-                        if (fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID") != null) {
-                            cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> " + fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssignedToUserID");
+                        if (wtObj.get(i).getExtraFields().get("dv_intAssignedToUserID") != null) {
+                            cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> " + wtObj.get(i).getExtraFields().get("dv_intAssignedToUserID");
                         } else {
                             cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> <font color=\"gray\"><i>No one.</i></font>";
                         }
+                    }
 
-                        if (fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours() != null) {
-                            if (fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours() != 1.0) {
-                                cardStamp = "<font color=\"yellow\"><b>Estimate:</b></font> " + fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours().toString() + " Hours";
+                    cardText += "<br /><font color=\"yellow\"><b>Completed on:</b></font> " + wtObj.get(i).getDtmDateCompleted();
+
+                    if (wtObj.get(i).getDblTimeSpentHours() != null) {
+                        if (wtObj.get(i).getDblTimeSpentHours() != 1.0) {
+                            cardStamp = wtObj.get(i).getDblTimeSpentHours().toString() + " Hours";
+                        } else {
+                            cardStamp = wtObj.get(i).getDblTimeSpentHours().toString() + " Hour";
+                        }
+                    } else {
+                        if (wtObj.get(i).getDblTimeEstimatedHours() != null) {
+                            if (wtObj.get(i).getDblTimeEstimatedHours() != 1.0) {
+                                cardStamp = wtObj.get(i).getDblTimeEstimatedHours().toString() + " Hours";
                             } else {
-                                cardStamp = "<font color=\"yellow\"><b>Estimate:</b></font> " + fRespWoT.getObjects().get(flag).getDblTimeEstimatedHours().toString() + " Hour";
+                                cardStamp = wtObj.get(i).getDblTimeEstimatedHours().toString() + " Hour";
                             }
                         } else {
-                            cardStamp = "<font color=\"gray\"><i>No estimated time.</i></font>";
+                            cardStamp = "<font color=\"gray\"><i>No Estimate</i></font>";
                         }
                     }
-                    if (fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssetID") != null) {
-                        cardNote = fRespWoT.getObjects().get(flag).getExtraFields().get("dv_intAssetID").toString();
-                    } else {
-                        cardNote = cardText += "<font color=\"gray\"><i>No assigned asset</i></font>";
+                } else {
+                    if (wtObj.get(i).getIntTaskType() == null) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <font color=\"gray\"><i>General</i></font>";
+                    } else if (wtObj.get(i).getIntTaskType() == 0) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <font color=\"gray\"><i>General</i></font>";
+                    } else if (wtObj.get(i).getIntTaskType() == 1) {
+                        cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
+                    } else if (wtObj.get(i).getIntTaskType() == 2) {
+                        if (wtObj.get(i).getExtraFields().get("dv_intMeterReadingUnitID") != null) {
+                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading - " + wtObj.get(i).getExtraFields().get("dv_intMeterReadingUnitID");
+                        } else {
+                            cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Meter Reading - <font color=\"gray\"><i>Unit not entered.</i></font>";
+                        }
                     }
 
-                    mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
-                            .setText(Html.fromHtml(cardText))
-                            .setFootnote(Html.fromHtml(cardNote))
-                            .setTimestamp(Html.fromHtml(cardStamp)));
+                    if (wtObj.get(i).getExtraFields().get("dv_intAssignedToUserID") != null) {
+                        cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> " + wtObj.get(i).getExtraFields().get("dv_intAssignedToUserID");
+                    } else {
+                        cardText += "<br /><font color=\"yellow\"><b>Assigned to:</b></font> <font color=\"gray\"><i>No one.</i></font>";
+                    }
+
+                    if (wtObj.get(i).getDblTimeEstimatedHours() != null) {
+                        if (wtObj.get(i).getDblTimeEstimatedHours() != 1.0) {
+                            cardStamp = wtObj.get(i).getDblTimeEstimatedHours().toString() + " Hours";
+                        } else {
+                            cardStamp = wtObj.get(i).getDblTimeEstimatedHours().toString() + " Hour";
+                        }
+                    } else {
+                        cardStamp = "<font color=\"gray\"><i>No Estimate</i></font>";
+                    }
                 }
+            if (wtObj.get(i).getExtraFields().get("dv_intAssetID") != null) {
+                    cardNote = wtObj.get(i).getExtraFields().get("dv_intAssetID").toString();
+                } else {
+                    cardNote = cardText += "<font color=\"gray\"><i>No assigned asset</i></font>";
+                }
+
+                mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
+                        .setText(Html.fromHtml(cardText))
+                        .setFootnote(Html.fromHtml(cardNote))
+                        .setTimestamp(Html.fromHtml(cardStamp)));
             }
         }
         mCardScroller.setSelection(position);
