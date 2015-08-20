@@ -43,6 +43,7 @@ public class AssetActivity extends Activity {
     private GestureDetector mGestureDetector;
     private long mID;
     private long sysCode;
+    private long mSiteID;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -200,7 +201,8 @@ public class AssetActivity extends Activity {
     private void workOrderRequest() {
         Intent requestIntent = new Intent(this, RequestActivity.class);
         requestIntent.putExtra(ResultsActivity.ID, mID);
-        requestIntent.putExtra(ResultsActivity.CODE, sysCode);
+        requestIntent.putExtra(ResultsActivity.ASSET, sysCode);
+        requestIntent.putExtra(ResultsActivity.CODE, mSiteID);
         startActivity(requestIntent);
     }
 
@@ -209,13 +211,13 @@ public class AssetActivity extends Activity {
         String cardNote;
         FindByIdRequest<Asset> fReqA = MainActivity.client.prepareFindById(Asset.class);
         fReqA.setId(mID);
-        fReqA.setFields("strName, strCode, strDescription, bolIsOnline, intSuperCategorySysCode, dv_intCategoryID, dv_intLastMeterReadingUnitID, cf_getLatestReadingsFor, cf_intDefaultImageFileID");
+        fReqA.setFields("strName, strCode, strDescription, intSiteID, bolIsOnline, intSuperCategorySysCode, dv_intCategoryID, dv_intLastMeterReadingUnitID, cf_getLatestReadingsFor, cf_intDefaultImageFileID");
         FindByIdResponse<Asset> fRespA = MainActivity.client.findById(fReqA);
 
         if (fRespA.getError() == null) {
 
             sysCode = fRespA.getObject().getIntSuperCategorySysCode();
-
+            mSiteID = fRespA.getObject().getIntSiteID();
 
             cardText = "<font color=\"yellow\"><b>Name:</b></font> ";
             if (fRespA.getObject().getStrName() != null) {

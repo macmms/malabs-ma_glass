@@ -3,6 +3,7 @@ package com.maintenanceassistant.maglass;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -17,27 +18,21 @@ import android.widget.Toast;
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
-import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollView;
 import com.ma.cmms.api.client.dto.Asset;
 import com.ma.cmms.api.client.dto.WorkOrder;
 import com.ma.cmms.api.client.dto.WorkOrderAsset;
 import com.ma.cmms.api.client.dto.WorkOrderPart;
-import com.ma.cmms.api.client.dto.WorkOrderStatus;
 import com.ma.cmms.api.crud.AddRequest;
 import com.ma.cmms.api.crud.AddResponse;
 import com.ma.cmms.api.crud.ChangeRequest;
 import com.ma.cmms.api.crud.ChangeResponse;
 import com.ma.cmms.api.crud.FindByIdRequest;
 import com.ma.cmms.api.crud.FindByIdResponse;
-import com.ma.cmms.api.crud.FindFilter;
-import com.ma.cmms.api.crud.FindRequest;
-import com.ma.cmms.api.crud.FindResponse;
 import com.maintenanceassistant.maglass.adapters.MainAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,6 +44,7 @@ public class RequestActivity extends Activity {
     private GestureDetector mGestureDetector;
     private Long mID;
     private Long mSysCode;
+    private Long mSiteID;
     private WorkOrder woObj = new WorkOrder();
     private String status = "None.";
     private boolean ready = false;
@@ -65,7 +61,8 @@ public class RequestActivity extends Activity {
         mCards = new ArrayList<>();
 
         mID = getIntent().getLongExtra(ResultsActivity.ID, ResultsActivity.EMPTY);
-        mSysCode = getIntent().getLongExtra(ResultsActivity.CODE, ResultsActivity.EMPTY);
+        mSysCode = getIntent().getLongExtra(ResultsActivity.ASSET, ResultsActivity.EMPTY);
+        mSiteID = getIntent().getLongExtra(ResultsActivity.CODE, ResultsActivity.EMPTY);
 
         pickStatus();
     }
@@ -174,17 +171,6 @@ public class RequestActivity extends Activity {
             long id = data.getLongExtra(ResultsActivity.ID, ResultsActivity.EMPTY);
             status = data.getStringExtra(ResultsActivity.CODE);
 
-            FindRequest<WorkOrderStatus> fReqWoS = MainActivity.client.prepareFind(WorkOrderStatus.class);
-            fReqWoS.setFields("id");
-            fReqWoS.setMaxObjects(1);
-            FindFilter controlFilter = new FindFilter();
-            controlFilter.setQl("intControlID = ?");
-            List<Object> params = Arrays.asList((Object) 100);
-            controlFilter.setParameters(params);
-            fReqWoS.setFilters(Arrays.asList(controlFilter));
-            FindResponse<WorkOrderStatus> fRespWoS = MainActivity.client.find(fReqWoS);
-
-            woObj.setIntWorkOrderStatusID(fRespWoS.getObjects().get(0).getId());
             woObj.setIntSiteID(MainActivity.SITEID);
             woObj.setIntMaintenanceTypeID(id);
 
