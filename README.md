@@ -14,7 +14,7 @@ TABLE OF CONTENTS
   6.1 [Main Menu][head0601]  
   6.2 [Work Orders][head0602]  
   6.3 [Scheduled Maintenance][head0603]  
-  6.4 [Scan QR Code][head0604]  
+  6.4 [Scan Asset QR Code][head0604]  
   6.5 [Generate Asset][head0605]  
   6.6 [View More][head0606]  
   6.7 [See Tasks][head0607]  
@@ -22,6 +22,7 @@ TABLE OF CONTENTS
   6.9 [Generate Work Order][head0609]  
 7. [Licensing][head0700]  
 9. [Change Log][head0800]  
+  [v1.0.2][v102]  
   [v1.0.1][v101]  
   [v1.0.0][v100]
 
@@ -31,8 +32,9 @@ TABLE OF CONTENTS
 1 AUTHORS &amp; CONTRIBUTORS
 ----------------------------
 
-v1.0.1 Created August 18, 2015 by Jake Uskoski
 v1.0.0 Created August 14, 2015 by Jake Uskoski
+v1.0.1 Created August 18, 2015 by Jake Uskoski
+v1.0.2 Created August 20, 2015 by Jake Uskoski
 
 [Back to Top][BackToTop]
 <br>
@@ -84,8 +86,9 @@ On the lower half of the page, there is a setup for beginners. After following
 the steps for preparing your Android Studio, you can either import MA for Glass
 directly from GitHub using the following link:
 
-&nbsp;&nbsp;&nbsp;[https://github.com/macmms/malabs-ma_glass.git][GitRep]
-  
+&nbsp;&nbsp;&nbsp;[https://github.com/macmms/malabs-ma_glass.git][GitRep]  
+*Note: The project is built with Gradle.*
+
 Or by downloading a ZIP version of the repository, and extracting it to a folder
 on your computer, from the following link:
 
@@ -195,7 +198,7 @@ Each scheduled maintenance has two options:
 [Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
-### 6.4 Scan QR Code ###
+### 6.4 Scan Asset QR Code ###
 
 The Scan QR Code option opens the camera on Google Glass. By aiming the camera
 at a QR code, the camera will try to scan the code. Scanning a valid QR code of
@@ -288,11 +291,12 @@ There are no further options from Change Status.
 ### 6.9 Generate Work Order ###
 
 The Generate Work Order option will load a list of cards, each one containing
-one maintenance type. This list works the same way as the Change Status option.
-After selecting one maintenance type, the Google Glass voice recognition
-software will be opened and await a description of the work order. After
-recording a summary, when the software recognizes the user has stopped speaking,
-the description will be attached to the work order.
+one pending status. This list works the same way as the Change Status option.
+After selecting one status, a list of maintenance types will load, and after
+selecting one maintenance type, the Google Glass voice recognition software will
+be opened and await a description of the work order. After recording a summary,
+when the software recognizes the user has stopped speaking, the description will
+be attached to the work order.
 
 The new work order's information is then shown on the screen. Tapping the Google
 Glass touchpad will validate that the information is correct and generate the
@@ -326,6 +330,17 @@ more information.
 8 CHANGE LOG
 ------------
 
+### v1.0.2 ###
+* Fixed multiasset work orders and scheduled maintenance
+* Fixed type reading for tasks
+* Changed "Scan QR Code" to "Scan Asset QR Code"
+* Added status selection for generated work orders
+  * Only pending statuses are shown
+* Added an extra confirmation screen to asset generation
+* Added descriptions to the asset cards
+* Bug Fixes
+* Updated the README to reflect the changes
+
 ### v1.0.1 ###
 * Code cleanup
 * README corrections
@@ -352,7 +367,7 @@ more information.
 [head0601]: #61-main-menu
 [head0602]: #62-work-orders
 [head0603]: #63-scheduled-maintenance
-[head0604]: #64-scan-qr-code
+[head0604]: #64-scan-asset-qr-code
 [head0605]: #65-generate-asset
 [head0606]: #66-view-more
 [head0607]: #67-see-tasks
@@ -363,6 +378,7 @@ more information.
 
 [v100]: #v100
 [v101]: #v101
+[v102]: #v102
 
 [AndStd]: https://developer.android.com/sdk/index.html
 [AndStp]: https://developers.google.com/glass/develop/gdk/quick-start?hl=en
