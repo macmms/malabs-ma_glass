@@ -268,7 +268,6 @@ public class PickStatusActivity extends Activity {
             cardNote = "Tap to select this work order status";
 
             int listSize = fRespWoS.getTotalObjects();
-            wsObj = fRespWoS.getObjects();
             for (int i = 0; listSize > i; i++) {
                 if (fRespWoS.getObjects().get(i).getIntControlID() == 100) {
                     wsObj.add(fRespWoS.getObjects().get(i));

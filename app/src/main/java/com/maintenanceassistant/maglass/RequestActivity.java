@@ -171,7 +171,7 @@ public class RequestActivity extends Activity {
             long id = data.getLongExtra(ResultsActivity.ID, ResultsActivity.EMPTY);
             status = data.getStringExtra(ResultsActivity.CODE);
 
-            woObj.setIntSiteID(MainActivity.SITEID);
+            woObj.setIntSiteID(mSiteID);
             woObj.setIntMaintenanceTypeID(id);
 
             delay("Tap to Describe Work Request", "This will begin speech recognition.");
