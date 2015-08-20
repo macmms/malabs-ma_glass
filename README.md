@@ -19,7 +19,7 @@ TABLE OF CONTENTS
   6.6 [View More][head0606]  
   6.7 [See Tasks][head0607]  
   6.8 [Change Status ][head0608]  
-  6.9 [Generate Work Order][head0609]  
+  6.9 [Create Work Request][head0609]  
 7. [Licensing][head0700]  
 9. [Change Log][head0800]  
   [v1.0.3][v103]  
@@ -159,7 +159,7 @@ cancel menu selection when open, either by voice or by touch.
 The main menu has four options:
 * [Work Orders][head0602]
 * [Scheduled Maintenance][head0603]
-* [Scan QR Code][head0604]
+* [Scan Asset QR Code][head0604]
 * [Generate Asset][head0605]
 
 [Back to Top][BackToTop]
@@ -179,7 +179,7 @@ Each work order has three options:
 * [See Tasks][head0607]
 * [Change Status][head0608]
 
-[Back to Scan][head0604]  
+[Back to QR Scan][head0604]  
 [Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
@@ -197,7 +197,7 @@ Each scheduled maintenance has two options:
 * [View More][head0606]
 * [See Tasks][head0607]
 
-[Back to Scan][head0604]  
+[Back to QR Scan][head0604]  
 [Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
@@ -234,7 +234,7 @@ asset will be loaded to the screen. This is the same as after
 * [View More][head0606]
 * [Related Work Orders][head0602]
 * [Related Scheduled Maintenance][head0603]
-* [Generate Work Order][head0609]
+* [Create Work Request][head0609]
 
 [Back to Main Menu][head0601]
 
@@ -249,7 +249,7 @@ There are no further options from View More.
 
 [Back to Work Orders][head0602]  
 [Back to Scheduled Maintenance][head0603]  
-[Back to Scan][head0604]  
+[Back to QR Scan][head0604]  
 [Back to Asset][head0605]  
 [Back to Main Menu][head0601]
 
@@ -291,9 +291,9 @@ There are no further options from Change Status.
 [Back to Work Order][head0602]  
 [Back to Main Menu][head0601]
 
-### 6.9 Generate Work Order ###
+### 6.9 Create Work Request ###
 
-The Generate Work Order option will load a list of cards, each one containing
+The Create Work Request option will load a list of cards, each one containing
 one pending status. This list works the same way as the Change Status option.
 After selecting one status, a list of maintenance types will load, and after
 selecting one maintenance type, the Google Glass voice recognition software will
@@ -306,14 +306,9 @@ Glass touchpad will validate that the information is correct and generate the
 work order. sliding a finger from the top of the Google Glass touchpad to the
 bottom will cancel the process and return the user to the asset cards.
 
-Work orders generated from the MA for Glass application have a status of "requested".
-Since "requested" is a pending status, and not an active one, the newly
-generated work order will not be shown in the list of work orders viewable by
-MA for Glass until its status is changed to an active status from the CMMS.
+There are no further options from Create Work Request.
 
-There are no further options from Generate Work Order.
-
-[Back to Scan][head0604]  
+[Back to QR Scan][head0604]  
 [Back to Asset][head0605]   
 [Back to Main Menu][head0601]
 <br>
@@ -386,7 +381,7 @@ Glass is a trademark of Google Inc.
 [head0606]: #66-view-more
 [head0607]: #67-see-tasks
 [head0608]: #68-change-status
-[head0609]: #69-generate-work-order
+[head0609]: #69-create-work-request
 [head0700]: #7-licensing
 [head0800]: #8-change-log
 
