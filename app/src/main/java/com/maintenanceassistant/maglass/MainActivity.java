@@ -59,8 +59,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
-        BasicCredentials credentials = new BasicCredentials(getString(R.string.app_key), getString(R.string.acs_key), getString(R.string.sec_key));
-        client = new MaCmmsClient(credentials, getString(R.string.user_URL));
+        client = new MaCmmsClient(new BasicCredentials(getString(R.string.app_key), getString(R.string.acs_key), getString(R.string.sec_key)), getString(R.string.user_URL));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -271,7 +270,7 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, ResultsActivity.PICK_STATUS);
     }
 
-    public void delay(String text, String note) {
+    private void delay(String text, String note) {
         Intent intent = new Intent(this, DelayActivity.class);
         intent.putExtra(ResultsActivity.TEXT, text);
         intent.putExtra(ResultsActivity.NOTE, note);

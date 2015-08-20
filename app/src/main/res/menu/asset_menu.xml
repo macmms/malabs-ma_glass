@@ -6,5 +6,5 @@
     <item android:id="@+id/related_scheduled_maintenance"
         android:title="Related Scheduled Maintenance"/>
     <item android:id="@+id/work_order_request"
-        android:title="Generate Work Order"/>
+        android:title="Create Work Request"/>
 </menu>

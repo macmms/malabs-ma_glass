@@ -196,7 +196,7 @@ public class PickStatusActivity extends Activity {
             FindRequest<MaintenanceType> fReqMT = MainActivity.client.prepareFind(MaintenanceType.class);
             fReqMT.setFields("id, strName, strColor");
             FindResponse<MaintenanceType> fRespMT = MainActivity.client.find(fReqMT);
-            cardNote = "Select a maintenance type.";
+            cardNote = "Tap to select this maintenance type.";
 
             int listSize = fRespMT.getTotalObjects();
             mtObj = fRespMT.getObjects();
@@ -223,7 +223,7 @@ public class PickStatusActivity extends Activity {
             fReqAC.setFields("id, strName, intParentID, intSysCode");
             FindResponse< AssetCategory > fRespAC = MainActivity.client.find(fReqAC);
             acObj = new ArrayList<>();
-            cardNote = "Select a category.";
+            cardNote = "Tap to select this asset category.";
 
             int listSize = fRespAC.getTotalObjects();
             for (int i = 0; listSize > i; i++) {
@@ -265,7 +265,7 @@ public class PickStatusActivity extends Activity {
             fReqWoS.setFields("id, strName, intControlID");
             FindResponse<WorkOrderStatus> fRespWoS = MainActivity.client.find(fReqWoS);
             wsObj = new ArrayList<>();
-            cardNote = "Tap to select";
+            cardNote = "Tap to select this work order status";
 
             int listSize = fRespWoS.getTotalObjects();
             wsObj = fRespWoS.getObjects();
@@ -294,7 +294,6 @@ public class PickStatusActivity extends Activity {
 
         if (currentObj.getIntParentID() == null) {
             if (currentObj.getIntSysCode() == null) {
-                System.out.println("Reached the end.");
                 return ResultsActivity.EMPTY;
             } else {
                 return previousObj.getIntSysCode();

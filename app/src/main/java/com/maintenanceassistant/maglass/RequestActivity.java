@@ -155,6 +155,12 @@ public class RequestActivity extends Activity {
         startActivityForResult(intent, ResultsActivity.PICK_TYPE);
     }
 
+    private void delay(String text, String note) {
+        Intent intent = new Intent(this, DelayActivity.class);
+        intent.putExtra(ResultsActivity.TEXT, text);
+        intent.putExtra(ResultsActivity.NOTE, note);
+        startActivityForResult(intent, ResultsActivity.DELAY);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -173,7 +179,7 @@ public class RequestActivity extends Activity {
             fReqWoS.setMaxObjects(1);
             FindFilter controlFilter = new FindFilter();
             controlFilter.setQl("intControlID = ?");
-            List< Object > params = Arrays.asList((Object) 100);
+            List<Object> params = Arrays.asList((Object) 100);
             controlFilter.setParameters(params);
             fReqWoS.setFilters(Arrays.asList(controlFilter));
             FindResponse<WorkOrderStatus> fRespWoS = MainActivity.client.find(fReqWoS);
@@ -182,6 +188,8 @@ public class RequestActivity extends Activity {
             woObj.setIntSiteID(MainActivity.SITEID);
             woObj.setIntMaintenanceTypeID(id);
 
+            delay("Tap to Describe Work Request", "This will begin speech recognition.");
+        }else if(requestCode == ResultsActivity.DELAY && resultCode == RESULT_OK) {
             displaySpeechRecognizer("Summarize the work order");
         } else if (requestCode == ResultsActivity.SPEECH_REQUEST && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);

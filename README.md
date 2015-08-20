@@ -22,6 +22,7 @@ TABLE OF CONTENTS
   6.9 [Generate Work Order][head0609]  
 7. [Licensing][head0700]  
 9. [Change Log][head0800]  
+  [v1.0.3][v103]  
   [v1.0.2][v102]  
   [v1.0.1][v101]  
   [v1.0.0][v100]
@@ -34,7 +35,8 @@ TABLE OF CONTENTS
 
 v1.0.0 Created August 14, 2015 by Jake Uskoski  
 v1.0.1 Created August 18, 2015 by Jake Uskoski  
-v1.0.2 Created August 20, 2015 by Jake Uskoski
+v1.0.2 Created August 20, 2015 by Jake Uskoski  
+v1.0.3 Created August 20, 2015 by Jake Uskoski
 
 [Back to Top][BackToTop]
 <br>
@@ -325,11 +327,21 @@ client for Java are licensed under the Apache License 2.0.
 See [LICENSE.txt][LCN] and [NOTICE.txt][NTC] files for
 more information.
 
+Glass is a trademark of Google Inc.
+
 [Back to Top][BackToTop]
 <br>
 
 8 CHANGE LOG
 ------------
+
+### v1.0.3 ###
+* Changed "Generate Work Order" to "Create Work Request"
+* Added am extra cpmfor,atopm screem tp work request generation
+  * Before speech recognition
+* Corrected v1.0.2 README mistakes
+  * Updated the README to reflect v1.0.3 changes
+* Improved consistency among status/category/maintenance type lists
 
 ### v1.0.2 ###
 * Fixed multiasset work orders and scheduled maintenance
@@ -338,6 +350,7 @@ more information.
 * Added status selection for generated work orders
   * Only pending statuses are shown
 * Added an extra confirmation screen to asset generation
+  * Before speech recognition
 * Added descriptions to the asset cards
 * Bug Fixes
 * Updated the README to reflect the changes
@@ -380,6 +393,7 @@ more information.
 [v100]: #v100
 [v101]: #v101
 [v102]: #v102
+[v103]: #v103
 
 [AndStd]: https://developer.android.com/sdk/index.html
 [AndStp]: https://developers.google.com/glass/develop/gdk/quick-start?hl=en
