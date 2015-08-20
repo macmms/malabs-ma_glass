@@ -3,7 +3,6 @@ package com.maintenanceassistant.maglass;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.StrictMode;

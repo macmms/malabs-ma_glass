@@ -21,7 +21,6 @@ import com.google.android.glass.view.WindowUtils;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollView;
 import com.ma.cmms.api.client.dto.ScheduledTask;
-import com.ma.cmms.api.client.dto.WorkOrder;
 import com.ma.cmms.api.client.dto.WorkOrderTask;
 import com.ma.cmms.api.crud.ChangeRequest;
 import com.ma.cmms.api.crud.ChangeResponse;
@@ -291,7 +290,7 @@ public class SeeTasksActivity extends Activity{
 
                 if (stObj.get(i).getIntTaskType() == null) {
                     cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <i><font color=\"gray\">General</font></i>";
-                } if (stObj.get(i).getIntTaskType() == 0) {
+                } else if (stObj.get(i).getIntTaskType() == 0) {
                     cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <i><font color=\"gray\">General</font></i>";
                 } else if (stObj.get(i).getIntTaskType() == 1) {
                     cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
@@ -366,7 +365,7 @@ public class SeeTasksActivity extends Activity{
                 if (wtObj.get(i).getDtmDateCompleted() != null) {
                     if (wtObj.get(i).getIntTaskType() == null) {
                         cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <font color=\"gray\"><i>General</i></font>";
-                    }else if (wtObj.get(i).getIntTaskType() == 0) {
+                    } else if (wtObj.get(i).getIntTaskType() == 0) {
                         cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> <font color=\"gray\"><i>General</i></font>";
                     } else if (wtObj.get(i).getIntTaskType() == 1) {
                         cardText += "<br /><font color=\"yellow\"><b>Task Type:</b></font> Text Result";
