@@ -32,8 +32,8 @@ TABLE OF CONTENTS
 1 AUTHORS &amp; CONTRIBUTORS
 ----------------------------
 
-v1.0.0 Created August 14, 2015 by Jake Uskoski
-v1.0.1 Created August 18, 2015 by Jake Uskoski
+v1.0.0 Created August 14, 2015 by Jake Uskoski  
+v1.0.1 Created August 18, 2015 by Jake Uskoski  
 v1.0.2 Created August 20, 2015 by Jake Uskoski
 
 [Back to Top][BackToTop]
@@ -87,14 +87,15 @@ the steps for preparing your Android Studio, you can either import MA for Glass
 directly from GitHub using the following link:
 
 &nbsp;&nbsp;&nbsp;[https://github.com/macmms/malabs-ma_glass.git][GitRep]  
-*Note: The project is built with Gradle.*
+&nbsp;&nbsp;&nbsp;*Note: The project is built with Gradle.*
 
 Or by downloading a ZIP version of the repository, and extracting it to a folder
 on your computer, from the following link:
 
 &nbsp;&nbsp;&nbsp;[https://github.com/macmms/malabs-ma_glass/archive/master.zip][GitZip]
   
-With the files extracted, the project can be opened through Android Studio.
+With the files extracted, the project can be imported from your file directory
+as a gradle project.
 
 [Back to Top][BackToTop]
 <br>
