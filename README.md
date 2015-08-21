@@ -62,6 +62,10 @@ Glass is a trademark of Google Inc.
 An Android Development Environment is needed to build the application.
 [Android Studio][AndStd] is recommended.
 
+[ZXing][ZXing] ("Zebra Crossing") is also required in order to scan QR codes. To learn
+about downloading and building the ZXing application for glass, visit their
+[Getting Started][ZXstp] page on their [GitHub repository][ZXing].
+
 This application also requires the Java SE Runtime Environment 8, and uses the
 Maintenance Assistant CMMS client, which depends on the following external
 libraries:
@@ -392,6 +396,8 @@ Glass is a trademark of Google Inc.
 
 [AndStd]: https://developer.android.com/sdk/index.html
 [AndStp]: https://developers.google.com/glass/develop/gdk/quick-start?hl=en
+[ZXing]: https://github.com/zxing/zxing
+[ZXstp]: https://github.com/zxing/zxing/wiki/Getting-Started-Developing
 [GitRep]: https://github.com/macmms/malabs-ma_glass
 [GitZip]: https://github.com/macmms/malabs-ma_glass/archive/master.zip
 [APIdoc]: https://www.maintenanceassistant.com/api/docs/guide.html

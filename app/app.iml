@@ -90,7 +90,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="jackson-core-2.3.3" level="project" />
     <orderEntry type="library" exported="" name="jackson-annotations-2.3.3" level="project" />
-    <orderEntry type="library" exported="" name="glass-mirror-2.3.0-javadoc" level="project" />
     <orderEntry type="library" exported="" name="ma-cmms-client-java-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="commons-httpclient-3.1" level="project" />
     <orderEntry type="library" exported="" name="jackson-databind-2.3.3" level="project" />
