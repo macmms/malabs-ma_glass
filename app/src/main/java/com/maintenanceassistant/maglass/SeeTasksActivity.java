@@ -450,7 +450,7 @@ public class SeeTasksActivity extends Activity{
             if (wtObj.get(i).getExtraFields().get("dv_intAssetID") != null) {
                     cardNote = wtObj.get(i).getExtraFields().get("dv_intAssetID").toString();
                 } else {
-                    cardNote = cardText += "<font color=\"gray\"><i>No assigned asset</i></font>";
+                    cardNote = "<font color=\"gray\"><i>No assigned asset</i></font>";
                 }
 
                 mCards.add(new CardBuilder(this, CardBuilder.Layout.TEXT)
