@@ -169,8 +169,8 @@ public class DelayActivity extends Activity {
 
     private View buildView(String text, String note) {
         return new CardBuilder(this, CardBuilder.Layout.MENU)
-                .setText("Tap to Describe Asset")
-                .setFootnote("This will begin speech recognition.")
+                .setText(text)
+                .setFootnote(note)
                 .getView();
     }
 }
