@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -167,29 +168,33 @@ public class PickStatusActivity extends Activity {
             FindRequest<WorkOrderStatus> fReqWoS = MainActivity.client.prepareFind(WorkOrderStatus.class);
             fReqWoS.setFields("id, strName, intControlID");
             FindResponse<WorkOrderStatus> fRespWoS = MainActivity.client.find(fReqWoS);
+            wsObj = new ArrayList<>();
 
             int listSize = fRespWoS.getTotalObjects();
-            wsObj = fRespWoS.getObjects();
             for (int i = 0; listSize > i; i++) {
-                if (fRespWoS.getObjects().get(i).getStrName() != null) {
-                    cardText = fRespWoS.getObjects().get(i).getStrName();
-                } else {
-                    cardText = "This status has no name.";
-                }
+                if (fRespWoS.getObjects().get(i).getIntControlID() != 103) {
+                    wsObj.add(fRespWoS.getObjects().get(i));
 
-                if (fRespWoS.getObjects().get(i).getIntControlID() == 100) {
-                    cardNote = "Pending";
-                } else if (fRespWoS.getObjects().get(i).getIntControlID() == 101) {
-                    cardNote = "Active";
-                } else if (fRespWoS.getObjects().get(i).getIntControlID() == 102) {
-                    cardNote = "Closed";
-                } else {
-                    cardNote = "Draft";
-                }
+                    if (fRespWoS.getObjects().get(i).getStrName() != null) {
+                        cardText = fRespWoS.getObjects().get(i).getStrName();
+                    } else {
+                        cardText = "This status has no name.";
+                    }
 
-                mCards.add(new CardBuilder(this, CardBuilder.Layout.MENU)
-                        .setText(cardText)
-                        .setFootnote(cardNote));
+                    if (fRespWoS.getObjects().get(i).getIntControlID() == 100) {
+                        cardNote = "Pending";
+                    } else if (fRespWoS.getObjects().get(i).getIntControlID() == 101) {
+                        cardNote = "Active";
+                    } else if (fRespWoS.getObjects().get(i).getIntControlID() == 102) {
+                        cardNote = "Closed";
+                    } else {
+                        cardNote = "<font color=gray><i>Other</i></font>";
+                    }
+
+                    mCards.add(new CardBuilder(this, CardBuilder.Layout.MENU)
+                            .setText(cardText)
+                            .setFootnote(Html.fromHtml(cardNote)));
+                }
             }
         } else if (mActivityController.equals(ResultsActivity.ASSET)) {
             FindRequest<MaintenanceType> fReqMT = MainActivity.client.prepareFind(MaintenanceType.class);
