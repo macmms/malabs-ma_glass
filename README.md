@@ -336,7 +336,7 @@ Glass is a trademark of Google Inc.
 
 ### v1.0.3 ###
 * Changed "Generate Work Order" to "Create Work Request"
-* Added am extra cpmfor,atopm screem tp work request generation
+* Added an extra confirmation screen to work request generation
   * Before speech recognition
 * Corrected v1.0.2 README mistakes
   * Updated the README to reflect v1.0.3 changes
