@@ -320,8 +320,8 @@ There are no further options from Create Work Request.
 7 LICENSING
 -----------
 
-Maintenance Assistant Labs Serial Port Reader and Maintenance Assistant CMMS
-client for Java are licensed under the Apache License 2.0.
+The Maintenance Assistant CMMSclient for Java is licensed under the Apache
+License 2.0.
 
 See [LICENSE.txt][LCN] and [NOTICE.txt][NTC] files for
 more information.
